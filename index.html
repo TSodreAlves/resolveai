@@ -105,10 +105,6 @@ h2{
   box-shadow:0 0 40px rgba(0,255,200,0.4);
 }
 
-.card h3{
-  margin-bottom:15px;
-}
-
 .card p{
   color:var(--muted);
 }
@@ -174,8 +170,8 @@ footer{
 
 <header>
   <div>
-    <h1>O App que Resolve Qualquer Problema que Você Precisa Urgente</h1>
-    <p>Serviços Urgentes, Residenciais e Sob Demanda.<br>Sem Mensalidade. Apenas uma pequena taxa por serviço.</p>
+    <h1>O App que Resolve Qualquer Problema Residencial Urgente</h1>
+    <p>Serviços sob demanda em tempo real.<br>Sem mensalidade. Apenas 5% por serviço.</p>
     <a href="#cadastro" class="btn">Sou prestador</a>
   </div>
 </header>
@@ -193,7 +189,7 @@ footer{
     </div>
     <div class="card">
       <h3>💰 Pagamento garantido</h3>
-      <p>Receba com taxa fixa de apenas 5%, sem mensalidades, sem outras taxas. Somente 5% do valor que você cobrar do seu cliente.</p>
+      <p>Você cobra do cliente. O ResolveAí recebe apenas 5%.</p>
     </div>
   </div>
 </section>
@@ -211,9 +207,11 @@ footer{
 
 <section id="cadastro" class="cta">
   <h2>Cadastro de prestador</h2>
-  <form onsubmit="enviarWhatsApp();return false;">
-    <input id="nome" placeholder="Nome completo" required>
-    <input id="whatsapp" placeholder="WhatsApp" required>
+
+  <form id="formCadastro">
+    <input type="text" id="nome" placeholder="Nome completo" required>
+    <input type="tel" id="whatsapp" placeholder="WhatsApp" required>
+
     <select id="servico" required>
       <option value="">Tipo de serviço</option>
       <option>Residencial urgente</option>
@@ -222,23 +220,11 @@ footer{
       <option>Fretes</option>
       <option>Pets</option>
     </select>
-    <input id="bairro" placeholder="Bairro / Cidade" required>
-    <button type="submit">Entrar no ResolveAí</button>
-  <form id="formCadastro">
-  <input type="text" id="nome" placeholder="Nome completo" required>
-  <input type="tel" id="whatsapp" placeholder="WhatsApp" required>
-  <select id="servico" required>
-    <option value="">Tipo de serviço</option>
-    <option>Residencial urgente</option>
-    <option>Limpeza</option>
-    <option>Beleza</option>
-    <option>Fretes</option>
-    <option>Pets</option>
-  </select>
-  <input type="text" id="bairro" placeholder="Bairro / Cidade" required>
-  <button type="submit">Enviar cadastro</button>
-</form>
 
+    <input type="text" id="bairro" placeholder="Bairro / Cidade" required>
+
+    <button type="submit">Entrar no ResolveAí</button>
+  </form>
 </section>
 
 <footer>
@@ -254,18 +240,18 @@ document.getElementById("formCadastro").addEventListener("submit", function(e) {
   const servico = document.getElementById("servico").value;
   const bairro = document.getElementById("bairro").value;
 
-  const numeroDestino = "5574988121658"; // EX: 5511999999999
+  const numeroDestino = "5574988121658";
 
   const mensagem =
-    "Olá! Quero me cadastrar como prestador.\n\n" +
+    "Olá! Quero me cadastrar como prestador no ResolveAí.\n\n" +
     "Nome: " + nome + "\n" +
     "WhatsApp: " + whatsapp + "\n" +
     "Serviço: " + servico + "\n" +
-    "Bairro: " + bairro;
+    "Bairro/Cidade: " + bairro;
 
   const url = "https://wa.me/" + numeroDestino + "?text=" + encodeURIComponent(mensagem);
 
-  window.location.href = url;
+  window.open(url, "_blank");
 });
 </script>
 
