@@ -115,7 +115,7 @@ footer{text-align:center;padding:30px;color:#6f7aa6;font-size:.9rem;}
 </div>
 </section>
 
-<section>
+<section id="prestador">
 <h2>Cadastro de Prestador</h2>
 <form id="formCadastro">
 <input id="nome" placeholder="Nome completo" required>
@@ -161,31 +161,46 @@ ResolveAí © 2026 • Brasil
 </footer>
 
 <script>
+// REFERÊNCIAS SEGURAS
+const formCadastro = document.getElementById("formCadastro");
+const nomeInput = document.getElementById("nome");
+const whatsappInput = document.getElementById("whatsapp");
+const servicoInput = document.getElementById("servico");
+const bairroInput = document.getElementById("bairro");
+
 // CADASTRO
-document.getElementById("formCadastro").onsubmit = e => {
-e.preventDefault();
-const prestadores = JSON.parse(localStorage.getItem("prestadores")||"[]");
-prestadores.push({
-nome:nome.value,
-whatsapp:whatsapp.value,
-servico:servico.value,
-bairro:bairro.value
-});
-localStorage.setItem("prestadores",JSON.stringify(prestadores));
-alert("Cadastro enviado com sucesso!");
+formCadastro.onsubmit = e => {
+  e.preventDefault();
+
+  const prestadores = JSON.parse(localStorage.getItem("prestadores") || "[]");
+
+  prestadores.push({
+    nome: nomeInput.value,
+    whatsapp: whatsappInput.value,
+    servico: servicoInput.value,
+    bairro: bairroInput.value
+  });
+
+  localStorage.setItem("prestadores", JSON.stringify(prestadores));
+
+  alert("Cadastro enviado com sucesso!");
+  formCadastro.reset();
 };
 
 // ADMIN
-if(location.hash=="#admin"){
-document.getElementById("admin").classList.remove("hidden");
-const lista=document.getElementById("listaPrestadores");
-(JSON.parse(localStorage.getItem("prestadores")||[]))
-.forEach(p=>lista.innerHTML+=`<p>${p.nome} - ${p.servico}</p>`);
+if (location.hash === "#admin") {
+  document.getElementById("admin").classList.remove("hidden");
+  const lista = document.getElementById("listaPrestadores");
+
+  (JSON.parse(localStorage.getItem("prestadores") || "[]"))
+    .forEach(p => {
+      lista.innerHTML += `<p>${p.nome} - ${p.servico}</p>`;
+    });
 }
 
 // PRESTADOR
-if(location.hash=="#prestador-painel"){
-document.getElementById("prestador-painel").classList.remove("hidden");
+if (location.hash === "#prestador-painel") {
+  document.getElementById("prestador-painel").classList.remove("hidden");
 }
 </script>
 
