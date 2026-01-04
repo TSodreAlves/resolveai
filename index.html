@@ -224,7 +224,7 @@ footer{
     </select>
     <input id="bairro" placeholder="Bairro / Cidade" required>
     <button type="submit">Entrar no ResolveAí</button>
-  </form>
+  <form onsubmit="enviarWhatsApp(event)">
 </section>
 
 <footer>
@@ -232,14 +232,22 @@ footer{
 </footer>
 
 <script>
-function enviarWhatsApp(){
-  const nome = nome.value;
+function enviarWhatsApp(event) {
+  event.preventDefault();
+
+  const nome = document.getElementById("nome").value;
   const whatsapp = document.getElementById("whatsapp").value;
   const servico = document.getElementById("servico").value;
   const bairro = document.getElementById("bairro").value;
 
-  const msg = `Olá! Quero me cadastrar como prestador.%0A%0ANome: ${nome}%0AWhatsApp: ${whatsapp}%0AServiço: ${servico}%0ABairro: ${bairro}`;
-  window.open(`https://wa.me/5574988121658?text=${msg}`,"_blank");
+  const msg = `Olá! Quero me cadastrar como prestador no ResolveAí.%0A
+Nome: ${nome}%0A
+WhatsApp: ${whatsapp}%0A
+Serviço: ${servico}%0A
+Bairro: ${bairro}`;
+
+  const numeroDestino = "5574988121658"; // SEU WHATSAPP AQUI
+  window.open(`https://wa.me/${numeroDestino}?text=${msg}`, "_blank");
 }
 </script>
 
