@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>ResolveAí • Serviços Sob Demanda</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Serviços residenciais urgentes sob demanda. Pagamento seguro em duas etapas.">
+<meta name="description" content="O iFood dos serviços. Pagamento protegido, prestadores verificados.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -18,17 +18,9 @@
   --muted:#9aa4bf;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-body{
-  background:var(--bg-dark);
-  color:var(--text);
-}
+body{background:var(--bg-dark);color:var(--text);}
 
 header{
   min-height:100vh;
@@ -42,42 +34,26 @@ header{
     linear-gradient(135deg, #020617, #0b0f1a);
 }
 
-header h1{
-  font-size:clamp(2.2rem,5vw,3.5rem);
-  margin-bottom:20px;
-}
-
-header p{
-  font-size:1.1rem;
-  color:var(--muted);
-  margin-bottom:35px;
-}
+h1{font-size:clamp(2.2rem,5vw,3.5rem);margin-bottom:20px;}
+p{color:var(--muted);}
 
 .btn{
+  display:inline-block;
+  margin-top:30px;
   background:linear-gradient(135deg,var(--primary),var(--secondary));
   color:#000;
   padding:18px 36px;
   border-radius:50px;
-  text-decoration:none;
   font-weight:700;
-  box-shadow:0 0 25px rgba(0,255,200,0.6);
+  text-decoration:none;
 }
 
-section{
-  padding:80px 20px;
-  max-width:1200px;
-  margin:auto;
-}
-
-h2{
-  text-align:center;
-  font-size:2.4rem;
-  margin-bottom:40px;
-}
+section{padding:80px 20px;max-width:1200px;margin:auto;}
+h2{text-align:center;font-size:2.4rem;margin-bottom:40px;}
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:30px;
 }
 
@@ -86,12 +62,7 @@ h2{
   padding:30px;
   border-radius:20px;
   text-align:center;
-  border:1px solid rgba(0,229,255,0.15);
-}
-
-.cta{
-  background:linear-gradient(135deg,#020617,#020b2d);
-  border-radius:30px;
+  border:1px solid rgba(0,229,255,.15);
 }
 
 form{
@@ -105,10 +76,9 @@ form{
 input,select{
   padding:16px;
   border-radius:12px;
-  border:none;
+  border:1px solid rgba(0,229,255,.2);
   background:#0b1024;
   color:#fff;
-  border:1px solid rgba(0,229,255,0.2);
 }
 
 button{
@@ -120,12 +90,9 @@ button{
   cursor:pointer;
 }
 
-footer{
-  padding:30px;
-  text-align:center;
-  color:#6f7aa6;
-  font-size:.9rem;
-}
+footer{text-align:center;padding:30px;color:#6f7aa6;font-size:.9rem;}
+
+.hidden{display:none;}
 </style>
 </head>
 
@@ -133,83 +100,93 @@ footer{
 
 <header>
   <div>
-    <h1>Serviços Residenciais Urgentes<br>Quando Você Mais Precisa</h1>
-    <p>Conectamos clientes a prestadores locais de forma segura.<br>Pagamento protegido e sem mensalidades.</p>
+    <h1>O iFood dos Serviços<br>Urgentes e Locais</h1>
+    <p>Pagamento protegido • Prestadores verificados • Sem mensalidade</p>
     <a href="#prestador" class="btn">Quero atender clientes</a>
   </div>
 </header>
 
 <section>
-  <h2>Como funciona</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>📲 Pedido</h3>
-      <p>O cliente solicita o serviço urgente.</p>
-    </div>
-    <div class="card">
-      <h3>💳 Pagamento seguro</h3>
-      <p>50% no pedido e 50% após chegada do prestador.</p>
-    </div>
-    <div class="card">
-      <h3>✔️ Conclusão</h3>
-      <p>O prestador recebe após o cliente confirmar o serviço.</p>
-    </div>
-  </div>
+<h2>Como funciona</h2>
+<div class="grid">
+<div class="card">📲 Cliente solicita</div>
+<div class="card">💳 50% agora / 50% na chegada</div>
+<div class="card">✔️ Plataforma libera pagamento</div>
+</div>
 </section>
 
 <section>
-  <h2>Regras importantes</h2>
-  <div class="grid">
-    <div class="card">🔒 Contato e endereço só após pagamento do sinal</div>
-    <div class="card">💰 Prestador recebe somente após pagamento total</div>
-    <div class="card">🚫 Pagamentos fora da plataforma não são reconhecidos</div>
-    <div class="card">📉 Taxa fixa de apenas 5%</div>
-  </div>
+<h2>Cadastro de Prestador</h2>
+<form id="formCadastro">
+<input id="nome" placeholder="Nome completo" required>
+<input id="whatsapp" placeholder="WhatsApp" required>
+<select id="servico" required>
+<option value="">Tipo de serviço</option>
+<option>Residencial urgente</option>
+<option>Limpeza</option>
+<option>Beleza</option>
+<option>Fretes</option>
+<option>Pets</option>
+</select>
+<input id="bairro" placeholder="Cidade / Bairro" required>
+<button>Cadastrar</button>
+<p style="font-size:.8rem">Ao se cadastrar você aceita os <a href="#termos">termos</a>.</p>
+</form>
 </section>
 
-<section id="prestador" class="cta">
-  <h2>Cadastro de Prestador</h2>
-  <form id="formCadastro">
-    <input type="text" id="nome" placeholder="Nome completo" required>
-    <input type="tel" id="whatsapp" placeholder="WhatsApp" required>
-    <select id="servico" required>
-      <option value="">Tipo de serviço</option>
-      <option>Residencial urgente</option>
-      <option>Limpeza</option>
-      <option>Beleza</option>
-      <option>Fretes</option>
-      <option>Pets</option>
-    </select>
-    <input type="text" id="bairro" placeholder="Bairro / Cidade" required>
-    <button type="submit">Enviar cadastro</button>
-  </form>
+<section id="prestador-painel" class="hidden">
+<h2>Painel do Prestador</h2>
+<div class="card">
+<p><strong>Status:</strong> Ativo</p>
+<p><strong>Saldo:</strong> R$ 0,00</p>
+<p>Chamados aparecerão aqui.</p>
+</div>
+</section>
+
+<section id="admin" class="hidden">
+<h2>Painel Admin</h2>
+<div id="listaPrestadores"></div>
+</section>
+
+<section id="termos">
+<h2>Termos e LGPD</h2>
+<p>
+A ResolveAí atua como intermediadora tecnológica. Pagamentos fora da plataforma
+não são reconhecidos. Dados protegidos conforme LGPD.
+</p>
 </section>
 
 <footer>
-  ResolveAí © 2026 • Brasil
+ResolveAí © 2026 • Brasil
 </footer>
 
 <script>
-document.getElementById("formCadastro").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const nome = document.getElementById("nome").value;
-  const whatsapp = document.getElementById("whatsapp").value;
-  const servico = document.getElementById("servico").value;
-  const bairro = document.getElementById("bairro").value;
-
-  const numeroDestino = "5574988121658";
-
-  const mensagem =
-    "Olá! Quero me cadastrar como prestador no ResolveAí.\n\n" +
-    "Nome: " + nome + "\n" +
-    "WhatsApp: " + whatsapp + "\n" +
-    "Serviço: " + servico + "\n" +
-    "Bairro/Cidade: " + bairro;
-
-  const url = "https://wa.me/" + numeroDestino + "?text=" + encodeURIComponent(mensagem);
-  window.location.href = url;
+// CADASTRO
+document.getElementById("formCadastro").onsubmit = e => {
+e.preventDefault();
+const prestadores = JSON.parse(localStorage.getItem("prestadores")||"[]");
+prestadores.push({
+nome:nome.value,
+whatsapp:whatsapp.value,
+servico:servico.value,
+bairro:bairro.value
 });
+localStorage.setItem("prestadores",JSON.stringify(prestadores));
+alert("Cadastro enviado com sucesso!");
+};
+
+// ADMIN
+if(location.hash=="#admin"){
+document.getElementById("admin").classList.remove("hidden");
+const lista=document.getElementById("listaPrestadores");
+(JSON.parse(localStorage.getItem("prestadores")||[]))
+.forEach(p=>lista.innerHTML+=`<p>${p.nome} - ${p.servico}</p>`);
+}
+
+// PRESTADOR
+if(location.hash=="#prestador-painel"){
+document.getElementById("prestador-painel").classList.remove("hidden");
+}
 </script>
 
 </body>
