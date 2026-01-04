@@ -224,7 +224,21 @@ footer{
     </select>
     <input id="bairro" placeholder="Bairro / Cidade" required>
     <button type="submit">Entrar no ResolveAí</button>
-  <form onsubmit="enviarWhatsApp(event)">
+  <form id="formCadastro">
+  <input type="text" id="nome" placeholder="Nome completo" required>
+  <input type="tel" id="whatsapp" placeholder="WhatsApp" required>
+  <select id="servico" required>
+    <option value="">Tipo de serviço</option>
+    <option>Residencial urgente</option>
+    <option>Limpeza</option>
+    <option>Beleza</option>
+    <option>Fretes</option>
+    <option>Pets</option>
+  </select>
+  <input type="text" id="bairro" placeholder="Bairro / Cidade" required>
+  <button type="submit">Enviar cadastro</button>
+</form>
+
 </section>
 
 <footer>
@@ -232,23 +246,27 @@ footer{
 </footer>
 
 <script>
-function enviarWhatsApp(event) {
-  event.preventDefault();
+document.getElementById("formCadastro").addEventListener("submit", function(e) {
+  e.preventDefault();
 
   const nome = document.getElementById("nome").value;
   const whatsapp = document.getElementById("whatsapp").value;
   const servico = document.getElementById("servico").value;
   const bairro = document.getElementById("bairro").value;
 
-  const msg = `Olá! Quero me cadastrar como prestador no ResolveAí.%0A
-Nome: ${nome}%0A
-WhatsApp: ${whatsapp}%0A
-Serviço: ${servico}%0A
-Bairro: ${bairro}`;
+  const numeroDestino = "5574988121658"; // EX: 5511999999999
 
-  const numeroDestino = "5574988121658"; // SEU WHATSAPP AQUI
-  window.open(`https://wa.me/${numeroDestino}?text=${msg}`, "_blank");
-}
+  const mensagem =
+    "Olá! Quero me cadastrar como prestador.\n\n" +
+    "Nome: " + nome + "\n" +
+    "WhatsApp: " + whatsapp + "\n" +
+    "Serviço: " + servico + "\n" +
+    "Bairro: " + bairro;
+
+  const url = "https://wa.me/" + numeroDestino + "?text=" + encodeURIComponent(mensagem);
+
+  window.location.href = url;
+});
 </script>
 
 </body>
