@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>ResolveAí • Serviços Sob Demanda</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="O app de serviços residenciais sob demanda. Sem mensalidade. Apenas 5%.">
+<meta name="description" content="Serviços residenciais urgentes sob demanda. Pagamento seguro em duas etapas.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -30,7 +30,6 @@ body{
   color:var(--text);
 }
 
-/* HERO */
 header{
   min-height:100vh;
   display:flex;
@@ -46,7 +45,6 @@ header{
 header h1{
   font-size:clamp(2.2rem,5vw,3.5rem);
   margin-bottom:20px;
-  line-height:1.2;
 }
 
 header p{
@@ -63,15 +61,8 @@ header p{
   text-decoration:none;
   font-weight:700;
   box-shadow:0 0 25px rgba(0,255,200,0.6);
-  transition:.3s;
 }
 
-.btn:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 40px rgba(0,255,200,0.9);
-}
-
-/* SECTIONS */
 section{
   padding:80px 20px;
   max-width:1200px;
@@ -81,7 +72,7 @@ section{
 h2{
   text-align:center;
   font-size:2.4rem;
-  margin-bottom:50px;
+  margin-bottom:40px;
 }
 
 .grid{
@@ -92,24 +83,12 @@ h2{
 
 .card{
   background:var(--bg-card);
-  padding:35px 25px;
+  padding:30px;
   border-radius:20px;
   text-align:center;
   border:1px solid rgba(0,229,255,0.15);
-  box-shadow:0 0 25px rgba(0,229,255,0.1);
-  transition:.3s;
 }
 
-.card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 0 40px rgba(0,255,200,0.4);
-}
-
-.card p{
-  color:var(--muted);
-}
-
-/* CTA */
 .cta{
   background:linear-gradient(135deg,#020617,#020b2d);
   border-radius:30px;
@@ -120,7 +99,7 @@ form{
   margin:auto;
   display:flex;
   flex-direction:column;
-  gap:16px;
+  gap:15px;
 }
 
 input,select{
@@ -129,39 +108,23 @@ input,select{
   border:none;
   background:#0b1024;
   color:#fff;
-  font-size:1rem;
-  outline:none;
   border:1px solid rgba(0,229,255,0.2);
 }
 
-input::placeholder{
-  color:#6f7aa6;
-}
-
 button{
-  margin-top:10px;
   padding:18px;
   border:none;
   border-radius:50px;
   background:linear-gradient(135deg,var(--primary),var(--secondary));
-  color:#000;
   font-weight:700;
-  font-size:1.05rem;
   cursor:pointer;
-  box-shadow:0 0 30px rgba(0,255,200,0.6);
 }
 
-button:hover{
-  box-shadow:0 0 45px rgba(0,255,200,0.9);
-}
-
-/* FOOTER */
 footer{
-  padding:30px 15px;
+  padding:30px;
   text-align:center;
   color:#6f7aa6;
   font-size:.9rem;
-  border-top:1px solid rgba(255,255,255,0.05);
 }
 </style>
 </head>
@@ -170,9 +133,9 @@ footer{
 
 <header>
   <div>
-    <h1>O App que Resolve Qualquer Problema Residencial Urgente</h1>
-    <p>Serviços sob demanda em tempo real.<br>Sem mensalidade. Apenas 5% por serviço.</p>
-    <a href="#cadastro" class="btn">Sou prestador</a>
+    <h1>Serviços Residenciais Urgentes<br>Quando Você Mais Precisa</h1>
+    <p>Conectamos clientes a prestadores locais de forma segura.<br>Pagamento protegido e sem mensalidades.</p>
+    <a href="#prestador" class="btn">Quero atender clientes</a>
   </div>
 </header>
 
@@ -180,38 +143,35 @@ footer{
   <h2>Como funciona</h2>
   <div class="grid">
     <div class="card">
-      <h3>⚡ Pedido imediato</h3>
-      <p>Clientes próximos solicitam serviços em tempo real.</p>
+      <h3>📲 Pedido</h3>
+      <p>O cliente solicita o serviço urgente.</p>
     </div>
     <div class="card">
-      <h3>🧠 Você decide</h3>
-      <p>Aceite apenas quando quiser trabalhar.</p>
+      <h3>💳 Pagamento seguro</h3>
+      <p>50% no pedido e 50% após chegada do prestador.</p>
     </div>
     <div class="card">
-      <h3>💰 Pagamento garantido</h3>
-      <p>Você cobra do cliente. O ResolveAí recebe apenas 5%.</p>
+      <h3>✔️ Conclusão</h3>
+      <p>O prestador recebe após o cliente confirmar o serviço.</p>
     </div>
   </div>
 </section>
 
 <section>
-  <h2>Serviços no lançamento</h2>
+  <h2>Regras importantes</h2>
   <div class="grid">
-    <div class="card">🔧 Residencial urgente</div>
-    <div class="card">🧹 Limpeza</div>
-    <div class="card">💇 Beleza em casa</div>
-    <div class="card">🚚 Fretes & montagem</div>
-    <div class="card">🐶 Pets</div>
+    <div class="card">🔒 Contato e endereço só após pagamento do sinal</div>
+    <div class="card">💰 Prestador recebe somente após pagamento total</div>
+    <div class="card">🚫 Pagamentos fora da plataforma não são reconhecidos</div>
+    <div class="card">📉 Taxa fixa de apenas 5%</div>
   </div>
 </section>
 
-<section id="cadastro" class="cta">
-  <h2>Cadastro de prestador</h2>
-
+<section id="prestador" class="cta">
+  <h2>Cadastro de Prestador</h2>
   <form id="formCadastro">
     <input type="text" id="nome" placeholder="Nome completo" required>
     <input type="tel" id="whatsapp" placeholder="WhatsApp" required>
-
     <select id="servico" required>
       <option value="">Tipo de serviço</option>
       <option>Residencial urgente</option>
@@ -220,10 +180,8 @@ footer{
       <option>Fretes</option>
       <option>Pets</option>
     </select>
-
     <input type="text" id="bairro" placeholder="Bairro / Cidade" required>
-
-    <button type="submit">Entrar no ResolveAí</button>
+    <button type="submit">Enviar cadastro</button>
   </form>
 </section>
 
@@ -250,8 +208,7 @@ document.getElementById("formCadastro").addEventListener("submit", function(e) {
     "Bairro/Cidade: " + bairro;
 
   const url = "https://wa.me/" + numeroDestino + "?text=" + encodeURIComponent(mensagem);
-
-  window.open(url, "_blank");
+  window.location.href = url;
 });
 </script>
 
