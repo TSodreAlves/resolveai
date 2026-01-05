@@ -2,9 +2,9 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>ResolveAí • Serviços Residenciais e Comerciais Sob Demanda</title>
+<title>ResolveAí • Serviços Sob Demanda</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="A Melhor e Mais Completa Plataforma de Integração Entre Prestadores de Serviços e Clientes. Pagamento Protegido Somente Pela Plataforma, Prestadores Verificados.">
+<meta name="description" content="Plataforma de serviços sob demanda com pagamento protegido e prestadores verificados.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -19,7 +19,6 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-
 body{background:var(--bg-dark);color:var(--text);}
 
 header{
@@ -30,16 +29,23 @@ header{
   text-align:center;
   padding:40px 20px;
   background:
-    radial-gradient(circle at top, #001d3d, transparent 40%),
-    linear-gradient(135deg, #020617, #0b0f1a);
+    linear-gradient(rgba(2,6,23,.85),rgba(11,15,26,.9)),
+    url("https://images.unsplash.com/photo-1581578731548-c64695cc6952") center/cover;
 }
 
-h1{font-size:clamp(2.5rem,6vw,3.8rem);margin-bottom:10px;}
+h1{font-size:clamp(2.5rem,6vw,3.8rem);}
 p{color:var(--muted);}
 
+.hero-extra{
+  margin-top:20px;
+  font-size:1.1rem;
+  color:#fff;
+  font-weight:500;
+}
+
 .btn{
-  display:inline-block;
   margin-top:30px;
+  display:inline-block;
   background:linear-gradient(135deg,var(--primary),var(--secondary));
   color:#000;
   padding:18px 36px;
@@ -61,7 +67,6 @@ h2{text-align:center;font-size:2.4rem;margin-bottom:40px;}
   background:var(--bg-card);
   padding:30px;
   border-radius:20px;
-  text-align:center;
   border:1px solid rgba(0,229,255,.15);
 }
 
@@ -94,18 +99,10 @@ footer{
   text-align:center;
   padding:30px;
   color:#6f7aa6;
-  font-size:.9rem;
 }
 
 .hidden{display:none;}
-
-.admin-btn{
-  margin-top:15px;
-  background:none;
-  border:none;
-  color:#6f7aa6;
-  cursor:pointer;
-}
+.admin-btn{background:none;border:none;color:#6f7aa6;cursor:pointer;margin-top:10px;}
 </style>
 </head>
 
@@ -114,12 +111,13 @@ footer{
 <header>
   <div>
     <h1>ResolveAí</h1>
-    <p style="font-size:1.3rem;font-weight:500;">
-      Serviços Residenciais e Comerciais Sob Demanda
+    <p style="font-size:1.3rem;">Serviços Residenciais e Comerciais Sob Demanda</p>
+
+    <p class="hero-extra">
+      Enquanto você lê isso, pessoas próximas estão precisando exatamente do serviço que você oferece.
     </p>
-    <p>
-      Pagamento protegido • Prestadores verificados • Sem mensalidade, somente uma pequena taxa por serviço
-    </p>
+
+    <p>Pagamento protegido • Prestadores verificados • Sem mensalidade</p>
     <a href="#cliente" class="btn">Solicitar serviço</a>
   </div>
 </header>
@@ -127,9 +125,9 @@ footer{
 <section>
 <h2>Como funciona</h2>
 <div class="grid">
-<div class="card">📲 Cliente solicita um determinado serviço</div>
-<div class="card">💳 O cliente paga 50% como reserva do prestador e 50% após serviço iniciado</div>
-<div class="card">✔️ Plataforma libera pagamento após confirmação de conclusão</div>
+<div class="card">📲 Cliente solicita o serviço</div>
+<div class="card">💳 50% para reservar e 50% após início</div>
+<div class="card">✔️ Pagamento liberado após conclusão</div>
 </div>
 </section>
 
@@ -138,7 +136,6 @@ footer{
 <form id="formCliente">
 <input id="nomeCliente" placeholder="Seu nome" required>
 <input id="whatsCliente" placeholder="WhatsApp" required>
-
 <select id="servicoCliente" required>
 <option value="">Tipo de serviço</option>
 <option>Residencial Urgente</option>
@@ -148,13 +145,8 @@ footer{
 <option>Frete</option>
 <option>Pets</option>
 </select>
-
-<input id="localCliente" placeholder="Endereço / Bairro / Cidade" required>
+<input id="localCliente" placeholder="Bairro / Cidade" required>
 <button>Solicitar Atendimento</button>
-
-<p style="font-size:.8rem">
-Ao solicitar, você aceita os <a href="#termos">termos de uso</a>.
-</p>
 </form>
 </section>
 
@@ -163,57 +155,29 @@ Ao solicitar, você aceita os <a href="#termos">termos de uso</a>.
 <form id="formCadastro">
 <input id="nome" placeholder="Nome completo" required>
 <input id="whatsapp" placeholder="WhatsApp" required>
-
 <select id="servico" required>
-<option value="">Tipo de serviço</option>
-<option>Residencial / Comercial Urgente</option>
-<option>Limpeza de Obras</option>
+<option value="">Segmento</option>
+<option>Residencial Urgente</option>
+<option>Comercial</option>
+<option>Limpeza</option>
 <option>Beleza</option>
 <option>Fretes</option>
 <option>Pets</option>
 </select>
-
-<input id="bairro" placeholder="Cidade / Bairro / Estado" required>
+<input id="bairro" placeholder="Cidade / Bairro" required>
 <button>Cadastrar</button>
-
-<p style="font-size:.8rem">
-Ao se cadastrar você aceita os <a href="#termos">termos</a>.
-</p>
 </form>
 </section>
 
 <section id="admin" class="hidden">
-<h2>Painel Admin</h2>
+<h2>Painel Administrativo</h2>
 <div class="card">
-<h3>Clientes</h3>
+<h3>Clientes por segmento</h3>
 <div id="listaClientes"></div>
 <hr style="margin:20px 0">
-<h3>Prestadores</h3>
+<h3>Prestadores por segmento</h3>
 <div id="listaPrestadores"></div>
 </div>
-</section>
-
-<section id="termos">
-<h2>Termos de Uso e LGPD</h2>
-
-<p>
-A <strong>ResolveAí</strong> atua como intermediadora tecnológica entre clientes
-e prestadores de serviços, não executando diretamente os serviços.
-</p>
-
-<p>
-Os pagamentos devem ocorrer exclusivamente dentro da plataforma.
-Negociações externas não são protegidas.
-</p>
-
-<p>
-Em conformidade com a <strong>LGPD (Lei nº 13.709/2018)</strong>, os dados informados
-são utilizados apenas para funcionamento da plataforma.
-</p>
-
-<p>
-O usuário pode solicitar a exclusão de seus dados a qualquer momento.
-</p>
 </section>
 
 <footer>
@@ -222,13 +186,14 @@ ResolveAí © 2026 • Brasil<br>
 </footer>
 
 <script>
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "resolveai123";
+const ADMIN_USER="admin";
+const ADMIN_PASS="resolveai123";
 
-// CLIENTE
-formCliente.onsubmit = e => {
+const clientes=JSON.parse(localStorage.getItem("clientes")||"[]");
+const prestadores=JSON.parse(localStorage.getItem("prestadores")||"[]");
+
+formCliente.onsubmit=e=>{
 e.preventDefault();
-const clientes = JSON.parse(localStorage.getItem("clientes")||"[]");
 clientes.push({
 nome:nomeCliente.value,
 whatsapp:whatsCliente.value,
@@ -240,59 +205,37 @@ alert("Solicitação enviada!");
 formCliente.reset();
 };
 
-// PRESTADOR
-formCadastro.onsubmit = e => {
+formCadastro.onsubmit=e=>{
 e.preventDefault();
-const prestadores = JSON.parse(localStorage.getItem("prestadores")||"[]");
 prestadores.push({
 nome:nome.value,
 whatsapp:whatsapp.value,
 servico:servico.value,
-bairro:bairro.value
+local:bairro.value
 });
 localStorage.setItem("prestadores",JSON.stringify(prestadores));
-alert("Cadastro enviado!");
+alert("Cadastro realizado!");
 formCadastro.reset();
 };
 
-// ADMIN
-adminBtn.onclick = () => {
-  const user = prompt("Usuário admin:")?.trim();
-  const pass = prompt("Senha admin:")?.trim();
-
-  if (user === ADMIN_USER && pass === ADMIN_PASS) {
-    admin.classList.remove("hidden");
-
-    listaClientes.innerHTML="";
-    (JSON.parse(localStorage.getItem("clientes")||[]))
-      .forEach(c=>listaClientes.innerHTML+=`<p>${c.nome} - ${c.servico}</p>`);
-
-    listaPrestadores.innerHTML="";
-    (JSON.parse(localStorage.getItem("prestadores")||[]))
-      .forEach(p=>listaPrestadores.innerHTML+=`<p>${p.nome} - ${p.servico}</p>`);
-
-    admin.scrollIntoView({behavior:"smooth"});
-  } else {
-    alert("Acesso negado");
-  }
-};
-
-return;
-}
-
+adminBtn.onclick=()=>{
+const u=prompt("Usuário:");
+const p=prompt("Senha:");
+if(u===ADMIN_USER && p===ADMIN_PASS){
 admin.classList.remove("hidden");
-
 listaClientes.innerHTML="";
-(JSON.parse(localStorage.getItem("clientes")||[]))
-.forEach(c=>listaClientes.innerHTML+=`<p>${c.nome} - ${c.servico}</p>`);
-
+clientes.forEach(c=>{
+listaClientes.innerHTML+=`<p><strong>${c.servico}</strong> — ${c.nome} (${c.local})</p>`;
+});
 listaPrestadores.innerHTML="";
-(JSON.parse(localStorage.getItem("prestadores")||[]))
-.forEach(p=>listaPrestadores.innerHTML+=`<p>${p.nome} - ${p.servico}</p>`);
-
+prestadores.forEach(p=>{
+listaPrestadores.innerHTML+=`<p><strong>${p.servico}</strong> — ${p.nome} (${p.local})</p>`;
+});
 admin.scrollIntoView({behavior:"smooth"});
+}else alert("Acesso negado");
 };
 </script>
 
 </body>
 </html>
+
