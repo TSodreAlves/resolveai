@@ -19,6 +19,7 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
 body{background:var(--bg-dark);color:var(--text);}
 
 header{
@@ -31,23 +32,9 @@ header{
   background:
     radial-gradient(circle at top, #001d3d, transparent 40%),
     linear-gradient(135deg, #020617, #0b0f1a);
-  position:relative;
 }
 
-.admin-btn{
-  position:absolute;
-  top:20px;
-  right:20px;
-  padding:10px 18px;
-  border-radius:30px;
-  background:linear-gradient(135deg,var(--primary),var(--secondary));
-  color:#000;
-  font-weight:600;
-  text-decoration:none;
-  font-size:.85rem;
-}
-
-h1{font-size:clamp(2.2rem,5vw,3.5rem);margin-bottom:20px;}
+h1{font-size:clamp(2.5rem,6vw,3.8rem);margin-bottom:10px;}
 p{color:var(--muted);}
 
 .btn{
@@ -103,111 +90,193 @@ button{
   cursor:pointer;
 }
 
-footer{text-align:center;padding:30px;color:#6f7aa6;font-size:.9rem;}
+footer{
+  text-align:center;
+  padding:30px;
+  color:#6f7aa6;
+  font-size:.9rem;
+}
+
 .hidden{display:none;}
+
+.admin-btn{
+  margin-top:15px;
+  background:none;
+  border:none;
+  color:#6f7aa6;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <a href="#admin" class="admin-btn">Admin</a>
-
   <div>
-    <h1>ResolveAí • Serviços Residenciais e Comerciais Sob Demanda</h1>
-    <p>Pagamento protegido • Prestadores verificados • Sem mensalidade, Somente uma Pequena Taxa do Valor do Serviço</p>
-    <a href="#prestador" class="btn">Quero atender clientes</a>
+    <h1>ResolveAí</h1>
+    <p style="font-size:1.3rem;font-weight:500;">
+      Serviços Residenciais e Comerciais Sob Demanda
+    </p>
+    <p>
+      Pagamento protegido • Prestadores verificados • Sem mensalidade, somente uma pequena taxa por serviço
+    </p>
+    <a href="#cliente" class="btn">Solicitar serviço</a>
   </div>
 </header>
 
 <section>
 <h2>Como funciona</h2>
 <div class="grid">
-  <div class="card">📲 Cliente solicita um determinado serviço</div>
-  <div class="card">💳 O cliente paga 50% como reserva do prestador e 50% após serviço iniciado</div>
-  <div class="card">✔️ Plataforma libera pagamento do prestador após pagamento dos 50% restante e confirmação de conclusão do cliente na própria plataforma</div>
+<div class="card">📲 Cliente solicita um determinado serviço</div>
+<div class="card">💳 O cliente paga 50% como reserva do prestador e 50% após serviço iniciado</div>
+<div class="card">✔️ Plataforma libera pagamento após confirmação de conclusão</div>
 </div>
 </section>
 
-<section id="prestador">
-<h2>Cadastro de Prestador</h2>
-<form id="formCadastro">
-  <input id="nome" placeholder="Nome completo" required>
-  <input id="whatsapp" placeholder="WhatsApp" required>
-  <select id="servico" required>
-    <option value="">Tipo de serviço</option>
-    <option>Residencial / Comercial Urgente</option>
-    <option>Limpeza de Obras Finalizadas / Residenciais e Comerciais</option>
-    <option>Beleza</option>
-    <option>Fretes</option>
-    <option>Pets</option>
-  </select>
-  <input id="bairro" placeholder="Cidade / Bairro / Estado" required>
-  <button>Cadastrar</button>
-  <p style="font-size:.8rem">Ao se cadastrar você aceita os <a href="#termos">termos</a>.</p>
+<section id="cliente">
+<h2>Solicitar Serviço</h2>
+<form id="formCliente">
+<input id="nomeCliente" placeholder="Seu nome" required>
+<input id="whatsCliente" placeholder="WhatsApp" required>
+
+<select id="servicoCliente" required>
+<option value="">Tipo de serviço</option>
+<option>Residencial Urgente</option>
+<option>Comercial</option>
+<option>Limpeza</option>
+<option>Beleza</option>
+<option>Frete</option>
+<option>Pets</option>
+</select>
+
+<input id="localCliente" placeholder="Endereço / Bairro / Cidade" required>
+<button>Solicitar Atendimento</button>
+
+<p style="font-size:.8rem">
+Ao solicitar, você aceita os <a href="#termos">termos de uso</a>.
+</p>
 </form>
 </section>
 
-<section id="admin">
+<section>
+<h2>Cadastro de Prestador</h2>
+<form id="formCadastro">
+<input id="nome" placeholder="Nome completo" required>
+<input id="whatsapp" placeholder="WhatsApp" required>
+
+<select id="servico" required>
+<option value="">Tipo de serviço</option>
+<option>Residencial / Comercial Urgente</option>
+<option>Limpeza de Obras</option>
+<option>Beleza</option>
+<option>Fretes</option>
+<option>Pets</option>
+</select>
+
+<input id="bairro" placeholder="Cidade / Bairro / Estado" required>
+<button>Cadastrar</button>
+
+<p style="font-size:.8rem">
+Ao se cadastrar você aceita os <a href="#termos">termos</a>.
+</p>
+</form>
+</section>
+
+<section id="admin" class="hidden">
 <h2>Painel Admin</h2>
-<div class="card" id="listaPrestadores">
-<p>Nenhum prestador cadastrado ainda.</p>
+<div class="card">
+<h3>Clientes</h3>
+<div id="listaClientes"></div>
+<hr style="margin:20px 0">
+<h3>Prestadores</h3>
+<div id="listaPrestadores"></div>
 </div>
 </section>
 
 <section id="termos">
-<h2>Termos e LGPD</h2>
+<h2>Termos de Uso e LGPD</h2>
+
 <p>
-A ResolveAí atua como intermediadora tecnológica. Pagamentos fora da plataforma
-não são reconhecidos. Dados protegidos conforme LGPD.
+A <strong>ResolveAí</strong> atua como intermediadora tecnológica entre clientes
+e prestadores de serviços, não executando diretamente os serviços.
+</p>
+
+<p>
+Os pagamentos devem ocorrer exclusivamente dentro da plataforma.
+Negociações externas não são protegidas.
+</p>
+
+<p>
+Em conformidade com a <strong>LGPD (Lei nº 13.709/2018)</strong>, os dados informados
+são utilizados apenas para funcionamento da plataforma.
+</p>
+
+<p>
+O usuário pode solicitar a exclusão de seus dados a qualquer momento.
 </p>
 </section>
 
 <footer>
-ResolveAí © 2026 • Brasil
+ResolveAí © 2026 • Brasil<br>
+<button class="admin-btn" id="adminBtn">Admin</button>
 </footer>
 
 <script>
-const form = document.getElementById("formCadastro");
-const lista = document.getElementById("listaPrestadores");
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "resolveai123";
 
-function carregarAdmin(){
-  const dados = JSON.parse(localStorage.getItem("prestadores") || "[]");
-  lista.innerHTML = "";
+// CLIENTE
+formCliente.onsubmit = e => {
+e.preventDefault();
+const clientes = JSON.parse(localStorage.getItem("clientes")||"[]");
+clientes.push({
+nome:nomeCliente.value,
+whatsapp:whatsCliente.value,
+servico:servicoCliente.value,
+local:localCliente.value
+});
+localStorage.setItem("clientes",JSON.stringify(clientes));
+alert("Solicitação enviada!");
+formCliente.reset();
+};
 
-  if(dados.length === 0){
-    lista.innerHTML = "<p>Nenhum prestador cadastrado ainda.</p>";
-    return;
-  }
+// PRESTADOR
+formCadastro.onsubmit = e => {
+e.preventDefault();
+const prestadores = JSON.parse(localStorage.getItem("prestadores")||"[]");
+prestadores.push({
+nome:nome.value,
+whatsapp:whatsapp.value,
+servico:servico.value,
+bairro:bairro.value
+});
+localStorage.setItem("prestadores",JSON.stringify(prestadores));
+alert("Cadastro enviado!");
+formCadastro.reset();
+};
 
-  dados.forEach(p => {
-    lista.innerHTML += `<p>${p.nome} — ${p.servico} — ${p.bairro}</p>`;
-  });
+// ADMIN
+adminBtn.onclick = () => {
+const user = prompt("Usuário admin:");
+const pass = prompt("Senha admin:");
+
+if(user !== ADMIN_USER || pass !== ADMIN_PASS){
+alert("Acesso negado");
+return;
 }
 
-form.addEventListener("submit", e => {
-  e.preventDefault();
+admin.classList.remove("hidden");
 
-  const prestadores = JSON.parse(localStorage.getItem("prestadores") || "[]");
+listaClientes.innerHTML="";
+(JSON.parse(localStorage.getItem("clientes")||[]))
+.forEach(c=>listaClientes.innerHTML+=`<p>${c.nome} - ${c.servico}</p>`);
 
-  prestadores.push({
-    nome: nome.value,
-    whatsapp: whatsapp.value,
-    servico: servico.value,
-    bairro: bairro.value
-  });
+listaPrestadores.innerHTML="";
+(JSON.parse(localStorage.getItem("prestadores")||[]))
+.forEach(p=>listaPrestadores.innerHTML+=`<p>${p.nome} - ${p.servico}</p>`);
 
-  localStorage.setItem("prestadores", JSON.stringify(prestadores));
-  alert("Cadastro enviado com sucesso!");
-  form.reset();
-});
-
-window.addEventListener("hashchange", () => {
-  if(location.hash === "#admin"){
-    carregarAdmin();
-    document.getElementById("admin").scrollIntoView({behavior:"smooth"});
-  }
-});
+admin.scrollIntoView({behavior:"smooth"});
+};
 </script>
 
 </body>
