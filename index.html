@@ -257,11 +257,26 @@ formCadastro.reset();
 
 // ADMIN
 adminBtn.onclick = () => {
-const user = prompt("Usuário admin:");
-const pass = prompt("Senha admin:");
+  const user = prompt("Usuário admin:")?.trim();
+  const pass = prompt("Senha admin:")?.trim();
 
-if(user !== ADMIN_USER || pass !== ADMIN_PASS){
-alert("Acesso negado");
+  if (user === ADMIN_USER && pass === ADMIN_PASS) {
+    admin.classList.remove("hidden");
+
+    listaClientes.innerHTML="";
+    (JSON.parse(localStorage.getItem("clientes")||[]))
+      .forEach(c=>listaClientes.innerHTML+=`<p>${c.nome} - ${c.servico}</p>`);
+
+    listaPrestadores.innerHTML="";
+    (JSON.parse(localStorage.getItem("prestadores")||[]))
+      .forEach(p=>listaPrestadores.innerHTML+=`<p>${p.nome} - ${p.servico}</p>`);
+
+    admin.scrollIntoView({behavior:"smooth"});
+  } else {
+    alert("Acesso negado");
+  }
+};
+
 return;
 }
 
