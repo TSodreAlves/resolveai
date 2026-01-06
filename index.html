@@ -85,7 +85,6 @@ background:var(--bg-card);
 padding:30px;
 border-radius:20px;
 border:1px solid rgba(0,229,255,.15);
-margin-bottom:20px;
 }
 
 form{
@@ -134,55 +133,6 @@ color:#6f7aa6;
 cursor:pointer;
 margin-top:10px;
 }
-
-.chat-box{
-max-width:700px;
-margin:auto;
-background:var(--bg-card);
-border-radius:20px;
-padding:20px;
-border:1px solid rgba(0,229,255,.15);
-}
-
-.chat-messages{
-max-height:300px;
-overflow-y:auto;
-margin-bottom:15px;
-}
-
-.msg-cliente{
-background:#00e5ff;
-color:#000;
-padding:10px 14px;
-border-radius:14px;
-margin-bottom:10px;
-max-width:80%;
-}
-
-.msg-prestador{
-background:#2a335f;
-padding:10px 14px;
-border-radius:14px;
-margin-bottom:10px;
-max-width:80%;
-margin-left:auto;
-}
-
-.chat-time{
-font-size:.7rem;
-opacity:.7;
-margin-top:4px;
-}
-
-.notificacao{
-background:#ff6b6b;
-color:#000;
-padding:8px 14px;
-border-radius:20px;
-display:inline-block;
-font-size:.8rem;
-margin-top:10px;
-}
 </style>
 </head>
 
@@ -196,10 +146,10 @@ margin-top:10px;
 
 <div class="center">
 <p style="color:#00ff9c;">
-O Super App de Serviços, aonde alguém perto precisa exatamente da sua especialidade.
+Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
 </p>
 <h1>ResolveAí</h1>
-<p>Serviços sob demanda • Pagamentos protegido • Prestadores verificados</p>
+<p>Serviços sob demanda • Pagamento protegido • Prestadores verificados</p>
 <a href="#cadastros" class="btn">Solicitar serviço</a>
 </div>
 </header>
@@ -207,9 +157,10 @@ O Super App de Serviços, aonde alguém perto precisa exatamente da sua especial
 <section>
 <h2>Serviços disponíveis</h2>
 <div class="grid">
-<div class="card">🔧 Manutenções Residenciais e Comerciais Urgente</div>
-<div class="card">🧹 Limpezas Residenciais / Pós Obras</div>
-<div class="card">💇 Beleza e Estética</div>
+<div class="card">🔧 Residencial urgente</div>
+<div class="card">🏢 Comercial</div>
+<div class="card">🧹 Limpeza</div>
+<div class="card">💇 Beleza</div>
 <div class="card">🚚 Fretes</div>
 <div class="card">🐶 Pets</div>
 </div>
@@ -235,13 +186,24 @@ O Super App de Serviços, aonde alguém perto precisa exatamente da sua especial
 <h3>Escolha o serviço</h3>
 <select id="filtroServico" onchange="listarPrestadores()">
 <option value="">Selecione</option>
-<option>Manurenção Residencial/Comercial</option>
-<option>Limpezas</option>
+<option>Residencial</option>
+<option>Comercial</option>
+<option>Limpeza</option>
 <option>Beleza</option>
 <option>Frete</option>
 <option>Pets</option>
 </select>
 <div id="listaPrestadoresCliente"></div>
+</div>
+
+<div id="dadosAcordoCliente" class="hidden" style="margin-top:20px;">
+<h3>Detalhes do Serviço Acordado</h3>
+<p id="descServicoCliente"></p>
+<p id="valorServicoCliente"></p>
+<button onclick="aceitarServico()">Aceitar Serviço</button>
+<button onclick="pagarMetade()">Pagar metade</button>
+<button onclick="marcarChegada()">Prestador Chegou</button>
+<button onclick="concluirServico()">Serviço Concluído</button>
 </div>
 
 <button class="logout" onclick="voltarHome()">Logout</button>
@@ -250,37 +212,21 @@ O Super App de Serviços, aonde alguém perto precisa exatamente da sua especial
 <section id="prestadorArea" class="hidden">
 <h2>Área do Prestador</h2>
 <div class="card" id="prestadorInfo"></div>
-<div id="prestadorNotificacao"></div>
 
 <form id="perfilPrestadorForm">
 <textarea id="perfilDescricao" placeholder="Descreva sua experiência, tempo de atuação e serviços ofertados"></textarea>
 <button>Salvar perfil</button>
 </form>
 
-<div id="chatPrestador" class="hidden">
-<h3>Chat com Cliente</h3>
-<div class="chat-box">
-<div class="chat-messages" id="mensagensPrestador"></div>
-<form onsubmit="enviarMensagemPrestador(event)">
-<input id="msgPrestador" placeholder="Digite sua mensagem">
-<button>Enviar</button>
-</form>
-</div>
+<div id="chatPrestador" class="hidden" style="margin-top:20px;">
+<h3>Mensagens recebidas</h3>
+<p id="mensagemCliente"></p>
+<input id="descServicoPrestador" placeholder="Descrição do Serviço">
+<input id="valorServicoPrestador" placeholder="Valor do Serviço">
+<button onclick="enviarAcordoCliente()">Enviar ao Cliente</button>
 </div>
 
 <button class="logout" onclick="voltarHome()">Logout</button>
-</section>
-
-<section id="chatCliente" class="hidden">
-<h2>Chat com Prestador</h2>
-<div class="chat-box">
-<div class="chat-messages" id="mensagensCliente"></div>
-<form onsubmit="enviarMensagemCliente(event)">
-<input id="msgCliente" placeholder="Digite sua mensagem">
-<button>Enviar</button>
-</form>
-</div>
-<button class="logout" onclick="voltarHome()">Encerrar</button>
 </section>
 
 <section id="cadastros">
@@ -348,7 +294,7 @@ O Super App de Serviços, aonde alguém perto precisa exatamente da sua especial
 <p>O usuário pode solicitar exclusão de seus dados a qualquer momento.</p>
 </section>
 
-<footer id="footerHome">
+<footer>
 ResolveAí © 2026 • Brasil<br>
 <button class="admin-btn" onclick="loginAdmin()">Admin</button>
 </footer>
@@ -356,12 +302,9 @@ ResolveAí © 2026 • Brasil<br>
 <script>
 function esconderTudo(){
 document.querySelectorAll("section,header").forEach(s=>s.classList.add("hidden"));
-footerHome.classList.add("hidden");
 }
 
-function voltarHome(){
-location.reload();
-}
+function voltarHome(){ location.reload(); }
 
 formCliente.onsubmit=e=>{
 e.preventDefault();
@@ -385,8 +328,7 @@ nome:nomePrestador.value,
 whats:whatsPrestador.value,
 senha:senhaPrestador.value,
 servico:servicoPrestador.value,
-perfil:"",
-notificacao:false
+perfil:""
 });
 localStorage.setItem("prestadores",JSON.stringify(p));
 alert("Prestador cadastrado!");
@@ -401,7 +343,8 @@ loginTipo.value=tipo;
 }
 
 let prestadorLogado=null;
-let chatAtual=null;
+let clienteLogado=null;
+let acordoAtual={valor:0,descricao:"",aceito:false,pagoMetade:false,chegou:false,concluido:false};
 
 function loginUsuario(e){
 e.preventDefault();
@@ -415,6 +358,8 @@ if(!c) return alert("Dados inválidos");
 esconderTudo();
 clienteArea.classList.remove("hidden");
 clienteInfo.innerHTML=`<strong>${c.nome}</strong><br>Serviço: ${c.servico}`;
+clienteLogado=c;
+atualizarAcordoCliente();
 }else{
 const p=JSON.parse(localStorage.getItem("prestadores")||"[]").find(x=>x.whats===whats && x.senha===senha);
 if(!p) return alert("Dados inválidos");
@@ -423,7 +368,7 @@ esconderTudo();
 prestadorArea.classList.remove("hidden");
 prestadorInfo.innerHTML=`<strong>${p.nome}</strong><br>${p.servico}`;
 perfilDescricao.value=p.perfil||"";
-verificarNotificacao();
+chatPrestador.classList.remove("hidden");
 }
 }
 
@@ -446,97 +391,11 @@ const lista=JSON.parse(localStorage.getItem("prestadores")||"[]").filter(p=>p.se
 listaPrestadoresCliente.innerHTML="";
 lista.forEach(p=>{
 listaPrestadoresCliente.innerHTML+=`
-<div class="card" onclick="abrirChatCliente('${p.whats}')">
+<div class="card" onclick="abrirChatPrestador('${p.whats}')">
 <strong>${p.nome}</strong><br>
 ${p.perfil||"Perfil em análise"}
 </div>`;
 });
-}
-
-function abrirChatCliente(whatsPrestador){
-chatAtual=whatsPrestador;
-esconderTudo();
-chatCliente.classList.remove("hidden");
-carregarMensagensCliente();
-}
-
-function enviarMensagemCliente(e){
-e.preventDefault();
-const msgs=JSON.parse(localStorage.getItem("chats")||"{}");
-if(!msgs[chatAtual]) msgs[chatAtual]=[];
-msgs[chatAtual].push({
-de:"cliente",
-texto:msgCliente.value,
-hora:new Date().toLocaleTimeString()
-});
-localStorage.setItem("chats",JSON.stringify(msgs));
-marcarNotificacao(chatAtual);
-msgCliente.value="";
-carregarMensagensCliente();
-}
-
-function carregarMensagensCliente(){
-mensagensCliente.innerHTML="";
-const msgs=JSON.parse(localStorage.getItem("chats")||"{}")[chatAtual]||[];
-msgs.forEach(m=>{
-mensagensCliente.innerHTML+=`
-<div class="${m.de==="cliente"?"msg-cliente":"msg-prestador"}">
-${m.texto}
-<div class="chat-time">${m.hora}</div>
-</div>`;
-});
-}
-
-function marcarNotificacao(whats){
-let lista=JSON.parse(localStorage.getItem("prestadores"));
-lista=lista.map(p=>{
-if(p.whats===whats) p.notificacao=true;
-return p;
-});
-localStorage.setItem("prestadores",JSON.stringify(lista));
-}
-
-function verificarNotificacao(){
-if(prestadorLogado.notificacao){
-prestadorNotificacao.innerHTML=`<div class="notificacao">Nova mensagem de cliente</div>`;
-}
-}
-
-function abrirChatPrestador(){
-esconderTudo();
-prestadorArea.classList.remove("hidden");
-chatPrestador.classList.remove("hidden");
-carregarMensagensPrestador();
-prestadorLogado.notificacao=false;
-let lista=JSON.parse(localStorage.getItem("prestadores"));
-lista=lista.map(p=>p.whats===prestadorLogado.whats?prestadorLogado:p);
-localStorage.setItem("prestadores",JSON.stringify(lista));
-}
-
-function carregarMensagensPrestador(){
-mensagensPrestador.innerHTML="";
-const msgs=JSON.parse(localStorage.getItem("chats")||"{}")[prestadorLogado.whats]||[];
-msgs.forEach(m=>{
-mensagensPrestador.innerHTML+=`
-<div class="${m.de==="cliente"?"msg-cliente":"msg-prestador"}">
-${m.texto}
-<div class="chat-time">${m.hora}</div>
-</div>`;
-});
-}
-
-function enviarMensagemPrestador(e){
-e.preventDefault();
-const msgs=JSON.parse(localStorage.getItem("chats")||"{}");
-if(!msgs[prestadorLogado.whats]) msgs[prestadorLogado.whats]=[];
-msgs[prestadorLogado.whats].push({
-de:"prestador",
-texto:msgPrestador.value,
-hora:new Date().toLocaleTimeString()
-});
-localStorage.setItem("chats",JSON.stringify(msgs));
-msgPrestador.value="";
-carregarMensagensPrestador();
 }
 
 function loginAdmin(){
@@ -551,7 +410,7 @@ adminPrestadores.innerHTML="";
 adminClientes.innerHTML+=`<p>${c.nome} • ${c.servico} <button onclick="excluir('clientes',${i})">Excluir</button></p>`;
 });
 (JSON.parse(localStorage.getItem("prestadores")||[])).forEach((p,i)=>{
-adminPrestadores.innerHTML+=`<p onclick="abrirChatPrestador()">${p.nome} • ${p.servico}</p>`;
+adminPrestadores.innerHTML+=`<p>${p.nome} • ${p.servico} <button onclick="excluir('prestadores',${i})">Excluir</button></p>`;
 });
 }else alert("Acesso negado");
 }
@@ -562,6 +421,62 @@ lista.splice(i,1);
 localStorage.setItem(tipo,JSON.stringify(lista));
 loginAdmin();
 }
+
+// ========================= NOVAS FUNÇÕES DE CHAT E ACORDO ========================
+
+function abrirChatPrestador(whatsClienteSelecionado){
+const cliente=JSON.parse(localStorage.getItem("clientes")||[]).find(c=>c.whats===whatsClienteSelecionado);
+if(!cliente) return alert("Cliente não encontrado");
+clienteLogado=cliente;
+mensagemCliente.innerText=`Cliente selecionado: ${cliente.nome} (${cliente.servico})`;
+descServicoPrestador.value="";
+valorServicoPrestador.value="";
+alert("Chat aberto. Agora você pode enviar os detalhes do serviço.");
+}
+
+function enviarAcordoCliente(){
+if(!descServicoPrestador.value || !valorServicoPrestador.value) return alert("Preencha descrição e valor.");
+acordoAtual.descricao=descServicoPrestador.value;
+acordoAtual.valor=parseFloat(valorServicoPrestador.value);
+acordoAtual.aceito=false;
+acordoAtual.pagoMetade=false;
+acordoAtual.chegou=false;
+acordoAtual.concluido=false;
+atualizarAcordoCliente();
+alert("Acordo enviado ao cliente.");
+}
+
+function atualizarAcordoCliente(){
+if(!acordoAtual.descricao) return;
+dadosAcordoCliente.classList.remove("hidden");
+descServicoCliente.innerText="Descrição: "+acordoAtual.descricao;
+valorServicoCliente.innerText="Valor: R$ "+acordoAtual.valor.toFixed(2);
+}
+
+function aceitarServico(){
+acordoAtual.aceito=true;
+alert("Você aceitou o serviço. Agora pode pagar metade do valor.");
+}
+
+function pagarMetade(){
+if(!acordoAtual.aceito) return alert("Aceite o serviço primeiro.");
+if(acordoAtual.pagoMetade) return alert("Metade já foi paga.");
+acordoAtual.pagoMetade=true;
+alert("Metade do valor paga. Aguardando chegada do prestador.");
+}
+
+function marcarChegada(){
+if(!acordoAtual.pagoMetade) return alert("Cliente precisa pagar metade antes da chegada.");
+acordoAtual.chegou=true;
+alert("Prestador chegou.");
+}
+
+function concluirServico(){
+if(!acordoAtual.chegou) return alert("Prestador precisa marcar chegada primeiro.");
+acordoAtual.concluido=true;
+alert("Serviço concluído. Pagamento final liberado.");
+}
+
 </script>
 
 </body>
