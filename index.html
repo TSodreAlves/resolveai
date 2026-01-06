@@ -2,240 +2,220 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>ResolveAí • Serviços Sob Demanda</title>
+<title>ResolveAí • Plataforma de Serviços</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Plataforma de serviços sob demanda com pagamento protegido e prestadores verificados.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg-dark:#0b0f1a;
-  --bg-card:#12172b;
+  --bg:#0b0f1a;
+  --card:#12172b;
   --primary:#00e5ff;
   --secondary:#00ff9c;
-  --text:#ffffff;
+  --text:#fff;
   --muted:#9aa4bf;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:var(--bg-dark);color:var(--text);}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
+body{background:var(--bg);color:var(--text);}
 
-header{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:40px 20px;
-  background:
-    linear-gradient(rgba(2,6,23,.85),rgba(11,15,26,.9)),
-    url("https://images.unsplash.com/photo-1581578731548-c64695cc6952") center/cover;
+section{padding:60px 20px;max-width:1200px;margin:auto;}
+h1,h2,h3{text-align:center;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+.card{background:var(--card);padding:20px;border-radius:16px;border:1px solid rgba(0,229,255,.15);}
+input,select,button{
+  padding:14px;border-radius:10px;border:none;
+  background:#0b1024;color:#fff;
 }
-
-h1{font-size:clamp(2.5rem,6vw,3.8rem);}
-p{color:var(--muted);}
-
-.hero-extra{
-  margin-top:20px;
-  font-size:1.1rem;
-  color:#fff;
-  font-weight:500;
-}
-
-.btn{
-  margin-top:30px;
-  display:inline-block;
-  background:linear-gradient(135deg,var(--primary),var(--secondary));
-  color:#000;
-  padding:18px 36px;
-  border-radius:50px;
-  font-weight:700;
-  text-decoration:none;
-}
-
-section{padding:80px 20px;max-width:1200px;margin:auto;}
-h2{text-align:center;font-size:2.4rem;margin-bottom:40px;}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:30px;
-}
-
-.card{
-  background:var(--bg-card);
-  padding:30px;
-  border-radius:20px;
-  border:1px solid rgba(0,229,255,.15);
-}
-
-form{
-  max-width:520px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-input,select{
-  padding:16px;
-  border-radius:12px;
-  border:1px solid rgba(0,229,255,.2);
-  background:#0b1024;
-  color:#fff;
-}
-
-button{
-  padding:18px;
-  border:none;
-  border-radius:50px;
-  background:linear-gradient(135deg,var(--primary),var(--secondary));
-  font-weight:700;
-  cursor:pointer;
-}
-
-footer{
-  text-align:center;
-  padding:30px;
-  color:#6f7aa6;
-}
-
-.hidden{display:none;}
-.admin-btn{background:none;border:none;color:#6f7aa6;cursor:pointer;margin-top:10px;}
+button{cursor:pointer;font-weight:600;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#000;}
+.hidden{display:none}
+.small{font-size:.85rem;color:var(--muted)}
+.logout{background:none;color:#ff6b6b;border:none;cursor:pointer;margin-top:15px}
 </style>
 </head>
 
 <body>
 
-<header>
-  <div>
-    <h1>ResolveAí</h1>
-    <p style="font-size:1.3rem;">Serviços Residenciais e Comerciais Sob Demanda</p>
-
-    <p class="hero-extra">
-      Enquanto você lê isso, pessoas próximas estão precisando exatamente do serviço que você oferece.
-    </p>
-
-    <p>Pagamento protegido • Prestadores verificados • Sem mensalidade</p>
-    <a href="#cliente" class="btn">Solicitar serviço</a>
-  </div>
-</header>
-
 <section>
-<h2>Como funciona</h2>
-<div class="grid">
-<div class="card">📲 Cliente solicita o serviço</div>
-<div class="card">💳 50% para reservar e 50% após início</div>
-<div class="card">✔️ Pagamento liberado após conclusão</div>
-</div>
+<h1>ResolveAí</h1>
+<p class="small" style="text-align:center">
+Enquanto você lê isso, alguém perto precisa do seu serviço.
+</p>
 </section>
 
-<section id="cliente">
+<!-- CLIENTE -->
+<section>
 <h2>Solicitar Serviço</h2>
+<div class="card">
 <form id="formCliente">
-<input id="nomeCliente" placeholder="Seu nome" required>
-<input id="whatsCliente" placeholder="WhatsApp" required>
-<select id="servicoCliente" required>
-<option value="">Tipo de serviço</option>
-<option>Residencial Urgente</option>
+<input id="cNome" placeholder="Seu nome" required>
+<input id="cWhats" placeholder="WhatsApp" required>
+<select id="cServico" required>
+<option value="">Serviço</option>
+<option>Residencial</option>
 <option>Comercial</option>
 <option>Limpeza</option>
 <option>Beleza</option>
 <option>Frete</option>
 <option>Pets</option>
 </select>
-<input id="localCliente" placeholder="Bairro / Cidade" required>
-<button>Solicitar Atendimento</button>
+<input id="cLocal" placeholder="Cidade / Bairro" required>
+<button>Enviar pedido</button>
 </form>
-</section>
-
-<section>
-<h2>Cadastro de Prestador</h2>
-<form id="formCadastro">
-<input id="nome" placeholder="Nome completo" required>
-<input id="whatsapp" placeholder="WhatsApp" required>
-<select id="servico" required>
-<option value="">Segmento</option>
-<option>Residencial Urgente</option>
-<option>Comercial</option>
-<option>Limpeza</option>
-<option>Beleza</option>
-<option>Fretes</option>
-<option>Pets</option>
-</select>
-<input id="bairro" placeholder="Cidade / Bairro" required>
-<button>Cadastrar</button>
-</form>
-</section>
-
-<section id="admin" class="hidden">
-<h2>Painel Administrativo</h2>
-<div class="card">
-<h3>Clientes por segmento</h3>
-<div id="listaClientes"></div>
-<hr style="margin:20px 0">
-<h3>Prestadores por segmento</h3>
-<div id="listaPrestadores"></div>
 </div>
 </section>
 
-<footer>
-ResolveAí © 2026 • Brasil<br>
-<button class="admin-btn" id="adminBtn">Admin</button>
-</footer>
+<!-- PRESTADOR -->
+<section>
+<h2>Cadastro de Prestador</h2>
+<div class="card">
+<form id="formPrestador">
+<input id="pNome" placeholder="Nome completo" required>
+<input id="pWhats" placeholder="WhatsApp" required>
+<select id="pServico" required>
+<option value="">Segmento</option>
+<option>Residencial</option>
+<option>Comercial</option>
+<option>Limpeza</option>
+<option>Beleza</option>
+<option>Frete</option>
+<option>Pets</option>
+</select>
+<button>Cadastrar</button>
+</form>
+</div>
+</section>
+
+<!-- ADMIN -->
+<section>
+<h2>Admin</h2>
+<div class="card">
+<button onclick="loginAdmin()">Entrar</button>
+<div id="adminPanel" class="hidden">
+
+<h3>Clientes</h3>
+<div id="clientesBox"></div>
+
+<hr>
+
+<h3>Prestadores</h3>
+<div id="prestadoresBox"></div>
+
+<button class="logout" onclick="logoutAdmin()">Logout</button>
+</div>
+</div>
+</section>
+
+<!-- PRESTADOR DASH -->
+<section id="prestadorDash" class="hidden">
+<h2>Área do Prestador</h2>
+<div class="card">
+<div id="prestadorInfo"></div>
+<h3>Serviços</h3>
+<div id="prestadorServicos"></div>
+<h3>Ganhos simulados</h3>
+<div id="prestadorGanhos"></div>
+<button class="logout" onclick="logoutPrestador()">Sair</button>
+</div>
+</section>
 
 <script>
-const ADMIN_USER="admin";
-const ADMIN_PASS="resolveai123";
+// STORAGE
+let clientes = JSON.parse(localStorage.getItem("clientes")||"[]");
+let prestadores = JSON.parse(localStorage.getItem("prestadores")||"[]");
+let servicos = JSON.parse(localStorage.getItem("servicos")||"[]");
 
-const clientes=JSON.parse(localStorage.getItem("clientes")||"[]");
-const prestadores=JSON.parse(localStorage.getItem("prestadores")||"[]");
-
+// CLIENTE
 formCliente.onsubmit=e=>{
 e.preventDefault();
-clientes.push({
-nome:nomeCliente.value,
-whatsapp:whatsCliente.value,
-servico:servicoCliente.value,
-local:localCliente.value
+servicos.push({
+id:Date.now(),
+cliente:cNome.value,
+whats:cWhats.value,
+servico:cServico.value,
+local:cLocal.value,
+status:"SOLICITADO",
+valor:200
 });
-localStorage.setItem("clientes",JSON.stringify(clientes));
-alert("Solicitação enviada!");
+localStorage.setItem("servicos",JSON.stringify(servicos));
+alert("Pedido enviado!");
 formCliente.reset();
 };
 
-formCadastro.onsubmit=e=>{
+// PRESTADOR
+formPrestador.onsubmit=e=>{
 e.preventDefault();
 prestadores.push({
-nome:nome.value,
-whatsapp:whatsapp.value,
-servico:servico.value,
-local:bairro.value
+nome:pNome.value,
+whats:pWhats.value,
+servico:pServico.value,
+ganhos:0
 });
 localStorage.setItem("prestadores",JSON.stringify(prestadores));
 alert("Cadastro realizado!");
-formCadastro.reset();
+formPrestador.reset();
 };
 
-adminBtn.onclick=()=>{
-const u=prompt("Usuário:");
-const p=prompt("Senha:");
-if(u===ADMIN_USER && p===ADMIN_PASS){
-admin.classList.remove("hidden");
-listaClientes.innerHTML="";
-clientes.forEach(c=>{
-listaClientes.innerHTML+=`<p><strong>${c.servico}</strong> — ${c.nome} (${c.local})</p>`;
-});
-listaPrestadores.innerHTML="";
-prestadores.forEach(p=>{
-listaPrestadores.innerHTML+=`<p><strong>${p.servico}</strong> — ${p.nome} (${p.local})</p>`;
-});
-admin.scrollIntoView({behavior:"smooth"});
+// ADMIN LOGIN
+function loginAdmin(){
+const u=prompt("Usuário");
+const s=prompt("Senha");
+if(u==="admin" && s==="123"){
+adminPanel.classList.remove("hidden");
+renderAdmin();
 }else alert("Acesso negado");
-};
+}
+
+function logoutAdmin(){
+adminPanel.classList.add("hidden");
+}
+
+// ADMIN RENDER
+function renderAdmin(){
+clientesBox.innerHTML="";
+prestadoresBox.innerHTML="";
+
+servicos.forEach(s=>{
+clientesBox.innerHTML+=`<p>${s.servico} - ${s.cliente} - ${s.status}</p>`;
+});
+
+prestadores.forEach(p=>{
+prestadoresBox.innerHTML+=`<p>${p.servico} - ${p.nome} (${p.whats})</p>`;
+});
+}
+
+// PRESTADOR LOGIN SIMPLES
+function loginPrestador(){
+const w=prompt("WhatsApp");
+const p=prestadores.find(x=>x.whats===w);
+if(!p){alert("Não encontrado");return}
+prestadorDash.classList.remove("hidden");
+prestadorInfo.innerHTML=`<p><strong>${p.nome}</strong><br>${p.servico}</p>`;
+prestadorServicos.innerHTML="";
+servicos.filter(s=>s.servico===p.servico).forEach(s=>{
+prestadorServicos.innerHTML+=`
+<p>${s.cliente} - ${s.status}
+<button onclick="avancar(${s.id})">Avançar</button>
+</p>`;
+});
+prestadorGanhos.innerHTML="R$ "+p.ganhos;
+}
+
+function logoutPrestador(){
+prestadorDash.classList.add("hidden");
+}
+
+// FLUXO DE STATUS
+function avancar(id){
+const s=servicos.find(x=>x.id===id);
+if(s.status==="SOLICITADO") s.status="SINAL PAGO";
+else if(s.status==="SINAL PAGO") s.status="PAGAMENTO TOTAL";
+else if(s.status==="PAGAMENTO TOTAL") s.status="CONCLUÍDO";
+localStorage.setItem("servicos",JSON.stringify(servicos));
+renderAdmin();
+}
 </script>
 
 </body>
 </html>
-
