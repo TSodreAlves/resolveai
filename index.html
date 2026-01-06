@@ -2,57 +2,145 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>ResolveAí • Plataforma de Serviços</title>
+<title>ResolveAí • Serviços Sob Demanda</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="Plataforma de conexão entre clientes e prestadores com pagamento protegido.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#0b0f1a;
-  --card:#12172b;
+  --bg-dark:#0b0f1a;
+  --bg-card:#12172b;
   --primary:#00e5ff;
   --secondary:#00ff9c;
-  --text:#fff;
+  --text:#ffffff;
   --muted:#9aa4bf;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
-body{background:var(--bg);color:var(--text);}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:var(--bg-dark);color:var(--text);}
 
-section{padding:60px 20px;max-width:1200px;margin:auto;}
-h1,h2,h3{text-align:center;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
-.card{background:var(--card);padding:20px;border-radius:16px;border:1px solid rgba(0,229,255,.15);}
-input,select,button{
-  padding:14px;border-radius:10px;border:none;
-  background:#0b1024;color:#fff;
+header{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:40px 20px;
+  background:
+    linear-gradient(rgba(11,15,26,.85),rgba(11,15,26,.85)),
+    url("https://images.unsplash.com/photo-1581578731548-c64695cc6952") center/cover;
 }
-button{cursor:pointer;font-weight:600;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#000;}
-.hidden{display:none}
-.small{font-size:.85rem;color:var(--muted)}
-.logout{background:none;color:#ff6b6b;border:none;cursor:pointer;margin-top:15px}
+
+h1{font-size:clamp(2.5rem,6vw,3.8rem);}
+p{color:var(--muted);}
+
+.btn{
+  margin-top:30px;
+  display:inline-block;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:#000;
+  padding:18px 36px;
+  border-radius:50px;
+  font-weight:700;
+  text-decoration:none;
+}
+
+section{padding:80px 20px;max-width:1200px;margin:auto;}
+h2{text-align:center;font-size:2.4rem;margin-bottom:40px;}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+.card{
+  background:var(--bg-card);
+  padding:30px;
+  border-radius:20px;
+  border:1px solid rgba(0,229,255,.15);
+}
+
+form{
+  max-width:520px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+input,select,button{
+  padding:16px;
+  border-radius:12px;
+  border:1px solid rgba(0,229,255,.2);
+  background:#0b1024;
+  color:#fff;
+}
+
+button{
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  font-weight:700;
+  cursor:pointer;
+  color:#000;
+}
+
+.hidden{display:none;}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:#6f7aa6;
+  font-size:.9rem;
+}
+.admin-btn{
+  background:none;
+  border:none;
+  color:#6f7aa6;
+  cursor:pointer;
+}
+.logout{
+  background:none;
+  border:none;
+  color:#ff6b6b;
+  cursor:pointer;
+  margin-top:20px;
+}
 </style>
 </head>
 
 <body>
 
-<section>
-<h1>ResolveAí</h1>
-<p class="small" style="text-align:center">
+<header>
+<div>
+<p style="color:#00ff9c;font-weight:600;">
 Enquanto você lê isso, alguém perto precisa do seu serviço.
 </p>
-</section>
 
-<!-- CLIENTE -->
-<section>
+<h1>ResolveAí</h1>
+
+<p style="font-size:1.3rem;font-weight:500;">
+Serviços Residenciais e Comerciais Sob Demanda
+</p>
+
+<p>
+Pagamento protegido • Prestadores verificados • Sem mensalidade
+</p>
+
+<a href="#cliente" class="btn">Solicitar serviço</a>
+</div>
+</header>
+
+<section id="cliente">
 <h2>Solicitar Serviço</h2>
-<div class="card">
 <form id="formCliente">
-<input id="cNome" placeholder="Seu nome" required>
-<input id="cWhats" placeholder="WhatsApp" required>
-<select id="cServico" required>
-<option value="">Serviço</option>
+<input id="nomeCliente" placeholder="Seu nome" required>
+<input id="whatsCliente" placeholder="WhatsApp" required>
+
+<select id="servicoCliente" required>
+<option value="">Tipo de serviço</option>
 <option>Residencial</option>
 <option>Comercial</option>
 <option>Limpeza</option>
@@ -60,20 +148,19 @@ Enquanto você lê isso, alguém perto precisa do seu serviço.
 <option>Frete</option>
 <option>Pets</option>
 </select>
-<input id="cLocal" placeholder="Cidade / Bairro" required>
-<button>Enviar pedido</button>
+
+<input id="localCliente" placeholder="Cidade / Bairro" required>
+<button>Solicitar Atendimento</button>
 </form>
-</div>
 </section>
 
-<!-- PRESTADOR -->
 <section>
 <h2>Cadastro de Prestador</h2>
-<div class="card">
-<form id="formPrestador">
-<input id="pNome" placeholder="Nome completo" required>
-<input id="pWhats" placeholder="WhatsApp" required>
-<select id="pServico" required>
+<form id="formCadastro">
+<input id="nome" placeholder="Nome completo" required>
+<input id="whatsapp" placeholder="WhatsApp" required>
+
+<select id="servico" required>
 <option value="">Segmento</option>
 <option>Residencial</option>
 <option>Comercial</option>
@@ -82,140 +169,96 @@ Enquanto você lê isso, alguém perto precisa do seu serviço.
 <option>Frete</option>
 <option>Pets</option>
 </select>
+
+<input id="bairro" placeholder="Cidade / Bairro / Estado" required>
 <button>Cadastrar</button>
 </form>
-</div>
 </section>
 
-<!-- ADMIN -->
-<section>
-<h2>Admin</h2>
+<section id="admin" class="hidden">
+<h2>Painel Admin</h2>
 <div class="card">
-<button onclick="loginAdmin()">Entrar</button>
-<div id="adminPanel" class="hidden">
-
-<h3>Clientes</h3>
-<div id="clientesBox"></div>
-
+<h3>Clientes por segmento</h3>
+<div id="listaClientes"></div>
 <hr>
-
-<h3>Prestadores</h3>
-<div id="prestadoresBox"></div>
-
-<button class="logout" onclick="logoutAdmin()">Logout</button>
-</div>
+<h3>Prestadores por segmento</h3>
+<div id="listaPrestadores"></div>
+<button class="logout" id="logoutAdmin">Logout</button>
 </div>
 </section>
 
-<!-- PRESTADOR DASH -->
-<section id="prestadorDash" class="hidden">
-<h2>Área do Prestador</h2>
-<div class="card">
-<div id="prestadorInfo"></div>
-<h3>Serviços</h3>
-<div id="prestadorServicos"></div>
-<h3>Ganhos simulados</h3>
-<div id="prestadorGanhos"></div>
-<button class="logout" onclick="logoutPrestador()">Sair</button>
-</div>
-</section>
+<footer>
+ResolveAí © 2026 • Brasil<br>
+<button class="admin-btn" id="adminBtn">Admin</button>
+</footer>
 
 <script>
-// STORAGE
-let clientes = JSON.parse(localStorage.getItem("clientes")||"[]");
-let prestadores = JSON.parse(localStorage.getItem("prestadores")||"[]");
-let servicos = JSON.parse(localStorage.getItem("servicos")||"[]");
+const ADMIN_USER="admin";
+const ADMIN_PASS="resolveai123";
 
-// CLIENTE
+const formCliente=document.getElementById("formCliente");
+const formCadastro=document.getElementById("formCadastro");
+
 formCliente.onsubmit=e=>{
 e.preventDefault();
-servicos.push({
-id:Date.now(),
-cliente:cNome.value,
-whats:cWhats.value,
-servico:cServico.value,
-local:cLocal.value,
-status:"SOLICITADO",
-valor:200
+const clientes=JSON.parse(localStorage.getItem("clientes")||"[]");
+clientes.push({
+nome:nomeCliente.value,
+whatsapp:whatsCliente.value,
+servico:servicoCliente.value,
+local:localCliente.value
 });
-localStorage.setItem("servicos",JSON.stringify(servicos));
-alert("Pedido enviado!");
+localStorage.setItem("clientes",JSON.stringify(clientes));
+alert("Solicitação enviada!");
 formCliente.reset();
 };
 
-// PRESTADOR
-formPrestador.onsubmit=e=>{
+formCadastro.onsubmit=e=>{
 e.preventDefault();
+const prestadores=JSON.parse(localStorage.getItem("prestadores")||"[]");
 prestadores.push({
-nome:pNome.value,
-whats:pWhats.value,
-servico:pServico.value,
-ganhos:0
+nome:nome.value,
+whatsapp:whatsapp.value,
+servico:servico.value,
+bairro:bairro.value
 });
 localStorage.setItem("prestadores",JSON.stringify(prestadores));
 alert("Cadastro realizado!");
-formPrestador.reset();
+formCadastro.reset();
 };
 
-// ADMIN LOGIN
-function loginAdmin(){
-const u=prompt("Usuário");
-const s=prompt("Senha");
-if(u==="admin" && s==="123"){
-adminPanel.classList.remove("hidden");
+adminBtn.onclick=()=>{
+const u=prompt("Usuário admin:");
+const p=prompt("Senha admin:");
+if(u===ADMIN_USER && p===ADMIN_PASS){
+admin.classList.remove("hidden");
 renderAdmin();
 }else alert("Acesso negado");
-}
+};
 
-function logoutAdmin(){
-adminPanel.classList.add("hidden");
-}
+logoutAdmin.onclick=()=>{
+admin.classList.add("hidden");
+};
 
-// ADMIN RENDER
 function renderAdmin(){
-clientesBox.innerHTML="";
-prestadoresBox.innerHTML="";
+const clientes=JSON.parse(localStorage.getItem("clientes")||"[]");
+const prestadores=JSON.parse(localStorage.getItem("prestadores")||"[]");
 
-servicos.forEach(s=>{
-clientesBox.innerHTML+=`<p>${s.servico} - ${s.cliente} - ${s.status}</p>`;
+listaClientes.innerHTML="";
+listaPrestadores.innerHTML="";
+
+["Residencial","Comercial","Limpeza","Beleza","Frete","Pets"].forEach(seg=>{
+listaClientes.innerHTML+=`<h4>${seg}</h4>`;
+clientes.filter(c=>c.servico===seg)
+.forEach(c=>listaClientes.innerHTML+=`<p>${c.nome} - ${c.local}</p>`);
+
+listaPrestadores.innerHTML+=`<h4>${seg}</h4>`;
+prestadores.filter(p=>p.servico===seg)
+.forEach(p=>listaPrestadores.innerHTML+=`<p>${p.nome} - ${p.whatsapp}</p>`);
 });
-
-prestadores.forEach(p=>{
-prestadoresBox.innerHTML+=`<p>${p.servico} - ${p.nome} (${p.whats})</p>`;
-});
-}
-
-// PRESTADOR LOGIN SIMPLES
-function loginPrestador(){
-const w=prompt("WhatsApp");
-const p=prestadores.find(x=>x.whats===w);
-if(!p){alert("Não encontrado");return}
-prestadorDash.classList.remove("hidden");
-prestadorInfo.innerHTML=`<p><strong>${p.nome}</strong><br>${p.servico}</p>`;
-prestadorServicos.innerHTML="";
-servicos.filter(s=>s.servico===p.servico).forEach(s=>{
-prestadorServicos.innerHTML+=`
-<p>${s.cliente} - ${s.status}
-<button onclick="avancar(${s.id})">Avançar</button>
-</p>`;
-});
-prestadorGanhos.innerHTML="R$ "+p.ganhos;
-}
-
-function logoutPrestador(){
-prestadorDash.classList.add("hidden");
-}
-
-// FLUXO DE STATUS
-function avancar(id){
-const s=servicos.find(x=>x.id===id);
-if(s.status==="SOLICITADO") s.status="SINAL PAGO";
-else if(s.status==="SINAL PAGO") s.status="PAGAMENTO TOTAL";
-else if(s.status==="PAGAMENTO TOTAL") s.status="CONCLUÍDO";
-localStorage.setItem("servicos",JSON.stringify(servicos));
-renderAdmin();
 }
 </script>
 
 </body>
 </html>
+
