@@ -85,7 +85,6 @@ background:var(--bg-card);
 padding:30px;
 border-radius:20px;
 border:1px solid rgba(0,229,255,.15);
-margin-bottom:20px;
 }
 
 form{
@@ -103,7 +102,14 @@ border:none;
 }
 
 input,select,textarea{background:#0b1024;color:#fff;}
-button{background:linear-gradient(135deg,var(--primary),var(--secondary));font-weight:700;cursor:pointer;color:#000;}
+textarea{min-height:120px;resize:vertical;}
+
+button{
+background:linear-gradient(135deg,var(--primary),var(--secondary));
+font-weight:700;
+cursor:pointer;
+color:#000;
+}
 
 .logout{
 margin-top:20px;
@@ -139,7 +145,9 @@ margin-top:10px;
 </div>
 
 <div class="center">
-<p style="color:#00ff9c;">Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.</p>
+<p style="color:#00ff9c;">
+Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
+</p>
 <h1>ResolveAí</h1>
 <p>Serviços sob demanda • Pagamento protegido • Prestadores verificados</p>
 <a href="#cadastros" class="btn">Solicitar serviço</a>
@@ -171,17 +179,35 @@ margin-top:10px;
 <section id="clienteArea" class="hidden">
 <h2>Área do Cliente</h2>
 <div class="card" id="clienteInfo"></div>
-<div id="prestadoresDisponiveis"></div>
-<button onclick="pagarSinal()">Pagar sinal (50%)</button>
-<button onclick="pagarRestante()">Pagar restante</button>
-<button onclick="concluirServico()">Confirmar serviço concluído</button>
+
+<button onclick="mostrarBuscaPrestadores()">Buscar prestador</button>
+
+<div id="buscaPrestadores" class="hidden">
+<h3>Escolha o serviço</h3>
+<select id="filtroServico" onchange="listarPrestadores()">
+<option value="">Selecione</option>
+<option>Residencial</option>
+<option>Comercial</option>
+<option>Limpeza</option>
+<option>Beleza</option>
+<option>Frete</option>
+<option>Pets</option>
+</select>
+<div id="listaPrestadoresCliente"></div>
+</div>
+
 <button class="logout" onclick="voltarHome()">Logout</button>
 </section>
 
 <section id="prestadorArea" class="hidden">
 <h2>Área do Prestador</h2>
 <div class="card" id="prestadorInfo"></div>
-<p style="color:#00ff9c;">Prestador verificado pela plataforma</p>
+
+<form id="perfilPrestadorForm">
+<textarea id="perfilDescricao" placeholder="Descreva sua experiência, tempo de atuação e serviços ofertados"></textarea>
+<button>Salvar perfil</button>
+</form>
+
 <button class="logout" onclick="voltarHome()">Logout</button>
 </section>
 
@@ -221,7 +247,6 @@ margin-top:10px;
 <option>Pets</option>
 </select>
 <input id="cidadePrestador" placeholder="Cidade" required>
-<textarea id="descricaoPrestador" placeholder="Apresentação profissional, tempo de atuação e especialidade"></textarea>
 <button>Cadastrar</button>
 </form>
 </section>
@@ -231,12 +256,14 @@ margin-top:10px;
 
 <div class="card">
 <h3>Clientes</h3>
-<div id="listaClientes"></div>
+<div id="adminClientes"></div>
 </div>
+
+<br>
 
 <div class="card">
 <h3>Prestadores</h3>
-<div id="listaPrestadores"></div>
+<div id="adminPrestadores"></div>
 </div>
 
 <button class="logout" onclick="voltarHome()">Logout</button>
@@ -249,7 +276,7 @@ margin-top:10px;
 <p>O usuário pode solicitar exclusão de seus dados a qualquer momento.</p>
 </section>
 
-<footer id="footer">
+<footer>
 ResolveAí © 2026 • Brasil<br>
 <button class="admin-btn" onclick="loginAdmin()">Admin</button>
 </footer>
@@ -257,12 +284,9 @@ ResolveAí © 2026 • Brasil<br>
 <script>
 function esconderTudo(){
 document.querySelectorAll("section,header").forEach(s=>s.classList.add("hidden"));
-footer.classList.remove("hidden");
 }
 
-function voltarHome(){
-location.reload();
-}
+function voltarHome(){ location.reload(); }
 
 formCliente.onsubmit=e=>{
 e.preventDefault();
@@ -286,7 +310,7 @@ nome:nomePrestador.value,
 whats:whatsPrestador.value,
 senha:senhaPrestador.value,
 servico:servicoPrestador.value,
-descricao:descricaoPrestador.value
+perfil:""
 });
 localStorage.setItem("prestadores",JSON.stringify(p));
 alert("Prestador cadastrado!");
@@ -300,9 +324,10 @@ loginTitulo.innerText="Login "+tipo;
 loginTipo.value=tipo;
 }
 
+let prestadorLogado=null;
+
 function loginUsuario(e){
 e.preventDefault();
-footer.classList.add("hidden");
 const tipo=loginTipo.value;
 const whats=loginWhats.value;
 const senha=loginSenha.value;
@@ -312,25 +337,42 @@ const c=JSON.parse(localStorage.getItem("clientes")||"[]").find(x=>x.whats===wha
 if(!c) return alert("Dados inválidos");
 esconderTudo();
 clienteArea.classList.remove("hidden");
-clienteInfo.innerHTML=`<strong>${c.nome}</strong>`;
-prestadoresDisponiveis.innerHTML="";
-JSON.parse(localStorage.getItem("prestadores")||"[]")
-.filter(p=>p.servico===c.servico)
-.forEach(p=>{
-prestadoresDisponiveis.innerHTML+=`
-<div class="card">
-<strong>${p.nome}</strong><br>
-${p.descricao}<br><br>
-<button onclick="alert('Prestador selecionado')">Escolher prestador</button>
-</div>`;
-});
+clienteInfo.innerHTML=`<strong>${c.nome}</strong><br>Serviço: ${c.servico}`;
 }else{
 const p=JSON.parse(localStorage.getItem("prestadores")||"[]").find(x=>x.whats===whats && x.senha===senha);
 if(!p) return alert("Dados inválidos");
+prestadorLogado=p;
 esconderTudo();
 prestadorArea.classList.remove("hidden");
-prestadorInfo.innerHTML=`<strong>${p.nome}</strong><br>${p.servico}<br>${p.descricao}`;
+prestadorInfo.innerHTML=`<strong>${p.nome}</strong><br>${p.servico}`;
+perfilDescricao.value=p.perfil||"";
 }
+}
+
+perfilPrestadorForm.onsubmit=e=>{
+e.preventDefault();
+prestadorLogado.perfil=perfilDescricao.value;
+let lista=JSON.parse(localStorage.getItem("prestadores"));
+lista=lista.map(p=>p.whats===prestadorLogado.whats?prestadorLogado:p);
+localStorage.setItem("prestadores",JSON.stringify(lista));
+alert("Perfil salvo");
+};
+
+function mostrarBuscaPrestadores(){
+buscaPrestadores.classList.toggle("hidden");
+}
+
+function listarPrestadores(){
+const s=filtroServico.value;
+const lista=JSON.parse(localStorage.getItem("prestadores")||"[]").filter(p=>p.servico===s);
+listaPrestadoresCliente.innerHTML="";
+lista.forEach(p=>{
+listaPrestadoresCliente.innerHTML+=`
+<div class="card">
+<strong>${p.nome}</strong><br>
+${p.perfil||"Perfil em análise"}
+</div>`;
+});
 }
 
 function loginAdmin(){
@@ -339,46 +381,23 @@ const p=prompt("Senha admin:");
 if(u==="admin" && p==="resolveai123"){
 esconderTudo();
 admin.classList.remove("hidden");
-
-listaClientes.innerHTML="";
-listaPrestadores.innerHTML="";
-
-const clientes=JSON.parse(localStorage.getItem("clientes")||"[]");
-const prestadores=JSON.parse(localStorage.getItem("prestadores")||"[]");
-
-clientes.forEach((c,i)=>{
-listaClientes.innerHTML+=`
-<p>${c.nome} • ${c.servico}
-<button onclick="excluirCliente(${i})">Excluir</button>
-</p>`;
+adminClientes.innerHTML="";
+adminPrestadores.innerHTML="";
+(JSON.parse(localStorage.getItem("clientes")||[])).forEach((c,i)=>{
+adminClientes.innerHTML+=`<p>${c.nome} • ${c.servico} <button onclick="excluir('clientes',${i})">Excluir</button></p>`;
 });
-
-prestadores.forEach((p,i)=>{
-listaPrestadores.innerHTML+=`
-<p>${p.nome} • ${p.servico}
-<button onclick="excluirPrestador(${i})">Excluir</button>
-</p>`;
+(JSON.parse(localStorage.getItem("prestadores")||[])).forEach((p,i)=>{
+adminPrestadores.innerHTML+=`<p>${p.nome} • ${p.servico} <button onclick="excluir('prestadores',${i})">Excluir</button></p>`;
 });
 }else alert("Acesso negado");
 }
 
-function excluirCliente(i){
-const c=JSON.parse(localStorage.getItem("clientes"));
-c.splice(i,1);
-localStorage.setItem("clientes",JSON.stringify(c));
+function excluir(tipo,i){
+const lista=JSON.parse(localStorage.getItem(tipo));
+lista.splice(i,1);
+localStorage.setItem(tipo,JSON.stringify(lista));
 loginAdmin();
 }
-
-function excluirPrestador(i){
-const p=JSON.parse(localStorage.getItem("prestadores"));
-p.splice(i,1);
-localStorage.setItem("prestadores",JSON.stringify(p));
-loginAdmin();
-}
-
-function pagarSinal(){alert("Sinal pago (simulado)");}
-function pagarRestante(){alert("Pagamento total (simulado)");}
-function concluirServico(){alert("Serviço concluído!");}
 </script>
 
 </body>
