@@ -1,5 +1,3 @@
-<!-- ===== NOVO CÓDIGO COMPLETO COM AJUSTES FINAIS SOLICITADOS ===== -->
-<!-- BASE: código validado pelo usuário -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* === ESTILO ORIGINAL (NÃO ALTERADO) === */
 :root{
 --bg-dark:#0b0f1a;
 --bg-card:#12172b;
@@ -24,90 +21,257 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{background:var(--bg-dark);color:var(--text);}
 .hidden{display:none;}
-/* ... todo o CSS original mantido ... */
+
+header{
+min-height:100vh;
+padding:30px;
+background:
+linear-gradient(rgba(11,15,26,.9),rgba(11,15,26,.9)),
+url("https://images.unsplash.com/photo-1581578731548-c64695cc6952") center/cover;
+position:relative;
+}
+
+.topbar{
+position:absolute;
+top:20px;
+right:20px;
+display:flex;
+gap:10px;
+}
+
+.topbar button{
+background:none;
+border:1px solid var(--primary);
+color:var(--primary);
+padding:8px 16px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.center{
+height:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:flex-start;
+text-align:center;
+padding-top:160px;
+}
+
+h1{font-size:3rem;margin-top:20px;}
+p{color:var(--muted);}
+
+.btn{
+margin-top:30px;
+background:linear-gradient(135deg,var(--primary),var(--secondary));
+color:#000;
+padding:18px 36px;
+border-radius:50px;
+font-weight:700;
+text-decoration:none;
+}
+
+section{padding:80px 20px;max-width:1200px;margin:auto;}
+h2{text-align:center;margin-bottom:40px;}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+}
+
+.card{
+background:var(--bg-card);
+padding:30px;
+border-radius:20px;
+border:1px solid rgba(0,229,255,.15);
+}
+
+form{
+max-width:520px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+input,select,textarea,button{
+padding:16px;
+border-radius:12px;
+border:none;
+}
+
+input,select,textarea{background:#0b1024;color:#fff;}
+button{background:linear-gradient(135deg,var(--primary),var(--secondary));font-weight:700;cursor:pointer;color:#000;}
+
+.logout{
+margin-top:20px;
+background:none;
+border:none;
+color:#ff6b6b;
+cursor:pointer;
+}
+
+footer{
+text-align:center;
+padding:30px;
+color:#6f7aa6;
+font-size:.9rem;
+}
+
+.admin-btn{
+background:none;
+border:none;
+color:#6f7aa6;
+cursor:pointer;
+margin-top:10px;
+}
 </style>
 </head>
 
 <body>
 
-<!-- TODO O HTML ORIGINAL MANTIDO ATÉ AQUI -->
+<header id="home">
+<div class="topbar">
+<button onclick="abrirLogin('cliente')">Login Cliente</button>
+<button onclick="abrirLogin('prestador')">Login Prestador</button>
+</div>
 
-<!-- ===================== NOVOS AJUSTES ===================== -->
+<div class="center">
+<p style="color:#00ff9c;">Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.</p>
+<h1>ResolveAí</h1>
+<p>Serviços sob demanda • Pagamento protegido • Prestadores verificados</p>
+<a href="#cadastros" class="btn">Solicitar serviço</a>
+</div>
+</header>
+
+<section>
+<h2>Serviços disponíveis</h2>
+<div class="grid">
+<div class="card">🔧 Residencial urgente</div>
+<div class="card">🏢 Comercial</div>
+<div class="card">🧹 Limpeza</div>
+<div class="card">💇 Beleza</div>
+<div class="card">🚚 Fretes</div>
+<div class="card">🐶 Pets</div>
+</div>
+</section>
+
+<section id="login" class="hidden">
+<h2 id="loginTitulo"></h2>
+<form onsubmit="loginUsuario(event)">
+<input id="loginWhats" placeholder="WhatsApp" required>
+<input type="password" id="loginSenha" placeholder="Senha" required>
+<input type="hidden" id="loginTipo">
+<button>Entrar</button>
+</form>
+</section>
+
+<section id="clienteArea" class="hidden">
+<h2>Área do Cliente</h2>
+<div class="card" id="clienteInfo"></div>
+<div id="prestadoresDisponiveis"></div>
+<button onclick="pagarSinal()">Pagar sinal (50%)</button>
+<button onclick="pagarRestante()">Pagar restante</button>
+<button onclick="concluirServico()">Confirmar serviço concluído</button>
+<button class="logout" onclick="voltarHome()">Logout</button>
+</section>
+
+<section id="prestadorArea" class="hidden">
+<h2>Área do Prestador</h2>
+<div class="card" id="prestadorInfo"></div>
+<button class="logout" onclick="voltarHome()">Logout</button>
+</section>
+
+<section id="cadastros">
+<h2>Cadastro Cliente</h2>
+<form id="formCliente">
+<input id="nomeCliente" placeholder="Nome" required>
+<input id="whatsCliente" placeholder="WhatsApp" required>
+<input type="password" id="senhaCliente" placeholder="Criar senha" required>
+<select id="servicoCliente" required>
+<option value="">Serviço</option>
+<option>Residencial</option>
+<option>Comercial</option>
+<option>Limpeza</option>
+<option>Beleza</option>
+<option>Frete</option>
+<option>Pets</option>
+</select>
+<input id="localCliente" placeholder="Cidade / Bairro" required>
+<button>Cadastrar</button>
+</form>
+
+<br><br>
+
+<h2>Cadastro Prestador</h2>
+<form id="formPrestador">
+<input id="nomePrestador" placeholder="Nome" required>
+<input id="whatsPrestador" placeholder="WhatsApp" required>
+<input type="password" id="senhaPrestador" placeholder="Criar senha" required>
+<select id="servicoPrestador" required>
+<option value="">Segmento</option>
+<option>Residencial</option>
+<option>Comercial</option>
+<option>Limpeza</option>
+<option>Beleza</option>
+<option>Frete</option>
+<option>Pets</option>
+</select>
+<input id="cidadePrestador" placeholder="Cidade" required>
+<textarea id="descricaoPrestador" placeholder="Apresentação profissional, tempo de atuação e especialidade"></textarea>
+<button>Cadastrar</button>
+</form>
+</section>
+
+<section id="admin" class="hidden">
+<h2>Painel Admin</h2>
+<div class="card">
+<h3>Clientes</h3>
+<div id="listaClientes"></div>
+<hr>
+<h3>Prestadores</h3>
+<div id="listaPrestadores"></div>
+<button class="logout" onclick="voltarHome()">Logout</button>
+</div>
+</section>
+
+<section id="termos">
+<h2>Termos de Uso e LGPD</h2>
+<p>A ResolveAí atua como intermediadora tecnológica entre clientes e prestadores.</p>
+<p>Os dados são tratados conforme a LGPD (Lei nº 13.709/2018).</p>
+<p>O usuário pode solicitar exclusão de seus dados a qualquer momento.</p>
+</section>
+
+<footer>
+ResolveAí © 2026 • Brasil<br>
+<button class="admin-btn" onclick="loginAdmin()">Admin</button>
+</footer>
 
 <script>
-/* ====== NOVO: EXCLUIR CADASTRO ====== */
-function excluirCadastro(tipo, whats){
-if(!confirm("Deseja realmente excluir este cadastro?")) return;
-let lista = JSON.parse(localStorage.getItem(tipo)||"[]");
-lista = lista.filter(x=>x.whats!==whats);
-localStorage.setItem(tipo, JSON.stringify(lista));
-alert("Cadastro removido");
-loginAdmin();
+function esconderTudo(){
+document.querySelectorAll("section,header").forEach(s=>s.classList.add("hidden"));
 }
 
-/* ====== NOVO: LISTAGEM ADMIN POR SEGMENTO ====== */
-function listarPorServico(lista, container, tipo){
-container.innerHTML="";
-const grupos={};
-lista.forEach(i=>{
-const s=i.servico||"Sem segmento";
-if(!grupos[s]) grupos[s]=[];
-grupos[s].push(i);
+function voltarHome(){
+location.reload();
+}
+
+formCliente.onsubmit=e=>{
+e.preventDefault();
+const c=JSON.parse(localStorage.getItem("clientes")||"[]");
+c.push({
+nome:nomeCliente.value,
+whats:whatsCliente.value,
+senha:senhaCliente.value,
+servico:servicoCliente.value
 });
-for(const serv in grupos){
-container.innerHTML+=`<h4>${serv}</h4>`;
-grupos[serv].forEach(i=>{
-container.innerHTML+=`
-<p>
-${i.nome}
-<button onclick="excluirCadastro('${tipo}','${i.whats}')">Excluir</button>
-</p>`;
-});
-}
-}
+localStorage.setItem("clientes",JSON.stringify(c));
+alert("Cliente cadastrado!");
+formCliente.reset();
+};
 
-/* ====== SOBRESCREVE LOGIN ADMIN (SEM REMOVER O ORIGINAL) ====== */
-const loginAdminOriginal = loginAdmin;
-loginAdmin = function(){
-const u=prompt("Usuário admin:");
-const p=prompt("Senha admin:");
-if(u==="admin" && p==="resolveai123"){
-esconderTudo();
-admin.classList.remove("hidden");
-
-const clientes = JSON.parse(localStorage.getItem("clientes")||"[]");
-const prestadores = JSON.parse(localStorage.getItem("prestadores")||"[]");
-
-listarPorServico(clientes, listaClientes, "clientes");
-listarPorServico(prestadores, listaPrestadores, "prestadores");
-}else alert("Acesso negado");
-}
-
-/* ====== NOVO: CLIENTE VÊ PRESTADORES ====== */
-function mostrarPrestadoresCliente(servico){
-const prestadores = JSON.parse(localStorage.getItem("prestadores")||"[]")
-.filter(p=>p.servico===servico);
-
-let html="<h3>Prestadores disponíveis</h3>";
-prestadores.forEach(p=>{
-html+=`
-<div class="card">
-<strong>${p.nome}</strong><br>
-${p.servico}<br>
-<p>${p.descricao||"Prestador verificado pela plataforma."}</p>
-<button onclick="alert('Prestador selecionado!')">Escolher</button>
-</div>`;
-});
-clienteInfo.innerHTML+=html;
-}
-
-/* ====== NOVO: CAMPO DESCRIÇÃO PRESTADOR ====== */
-formPrestador.insertAdjacentHTML("beforeend",`
-<textarea id="descricaoPrestador" placeholder="Apresentação profissional, tempo de atuação, especialidades" style="padding:16px;border-radius:12px;"></textarea>
-`);
-
-const formPrestadorOriginal = formPrestador.onsubmit;
-formPrestador.onsubmit = e=>{
+formPrestador.onsubmit=e=>{
 e.preventDefault();
 const p=JSON.parse(localStorage.getItem("prestadores")||"[]");
 p.push({
@@ -122,9 +286,14 @@ alert("Prestador cadastrado!");
 formPrestador.reset();
 };
 
-/* ====== INTEGRA CLIENTE AO LISTAR PRESTADORES ====== */
-const loginUsuarioOriginal = loginUsuario;
-loginUsuario = function(e){
+function abrirLogin(tipo){
+esconderTudo();
+login.classList.remove("hidden");
+loginTitulo.innerText="Login "+tipo;
+loginTipo.value=tipo;
+}
+
+function loginUsuario(e){
 e.preventDefault();
 const tipo=loginTipo.value;
 const whats=loginWhats.value;
@@ -135,12 +304,43 @@ const c=JSON.parse(localStorage.getItem("clientes")||"[]").find(x=>x.whats===wha
 if(!c) return alert("Dados inválidos");
 esconderTudo();
 clienteArea.classList.remove("hidden");
-clienteInfo.innerHTML=`<strong>${c.nome}</strong><br>`;
-mostrarPrestadoresCliente(c.servico);
+clienteInfo.innerHTML=`<strong>${c.nome}</strong>`;
+prestadoresDisponiveis.innerHTML="";
+JSON.parse(localStorage.getItem("prestadores")||"[]")
+.filter(p=>p.servico===c.servico)
+.forEach(p=>{
+prestadoresDisponiveis.innerHTML+=`
+<div class="card">
+<strong>${p.nome}</strong><br>
+${p.descricao}
+<button onclick="alert('Prestador selecionado')">Escolher</button>
+</div>`;
+});
 }else{
-loginUsuarioOriginal(e);
+const p=JSON.parse(localStorage.getItem("prestadores")||"[]").find(x=>x.whats===whats && x.senha===senha);
+if(!p) return alert("Dados inválidos");
+esconderTudo();
+prestadorArea.classList.remove("hidden");
+prestadorInfo.innerHTML=`<strong>${p.nome}</strong><br>${p.servico}<br>${p.descricao}`;
 }
 }
+
+function loginAdmin(){
+const u=prompt("Usuário admin:");
+const p=prompt("Senha admin:");
+if(u==="admin" && p==="resolveai123"){
+esconderTudo();
+admin.classList.remove("hidden");
+listaClientes.innerHTML="";
+listaPrestadores.innerHTML="";
+(JSON.parse(localStorage.getItem("clientes")||[])).forEach((c,i)=>listaClientes.innerHTML+=`<p>${c.nome}</p>`);
+(JSON.parse(localStorage.getItem("prestadores")||[])).forEach((p,i)=>listaPrestadores.innerHTML+=`<p>${p.nome} • ${p.servico}</p>`);
+}else alert("Acesso negado");
+}
+
+function pagarSinal(){alert("Sinal pago (simulado)");}
+function pagarRestante(){alert("Pagamento total (simulado)");}
+function concluirServico(){alert("Serviço concluído!");}
 </script>
 
 </body>
