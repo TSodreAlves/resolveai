@@ -4,104 +4,106 @@
 <meta charset="UTF-8">
 <title>ResolveAí • Plataforma de Serviços Sob Demanda</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Plataforma de integração entre clientes e prestadores de serviços.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg-dark:#0b0f1a;
-  --bg-card:#12172b;
-  --primary:#00e5ff;
-  --secondary:#00ff9c;
-  --text:#ffffff;
-  --muted:#9aa4bf;
+--bg-dark:#0b0f1a;
+--bg-card:#12172b;
+--primary:#00e5ff;
+--secondary:#00ff9c;
+--text:#ffffff;
+--muted:#9aa4bf;
 }
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{background:var(--bg-dark);color:var(--text);}
 
 header{
-  min-height:100vh;
-  padding:30px;
-  background:
-    linear-gradient(rgba(11,15,26,.9),rgba(11,15,26,.9)),
-    url("https://images.unsplash.com/photo-1581578731548-c64695cc6952") center/cover;
-  position:relative;
+min-height:100vh;
+padding:30px;
+background:
+linear-gradient(rgba(11,15,26,.9),rgba(11,15,26,.9)),
+url("https://images.unsplash.com/photo-1581578731548-c64695cc6952") center/cover;
+position:relative;
 }
 
 .topbar{
-  position:absolute;
-  top:20px;
-  right:20px;
-  display:flex;
-  gap:10px;
+position:absolute;
+top:20px;
+right:20px;
+display:flex;
+gap:10px;
 }
 
 .topbar button{
-  background:none;
-  border:1px solid var(--primary);
-  color:var(--primary);
-  padding:8px 16px;
-  border-radius:20px;
-  cursor:pointer;
+background:none;
+border:1px solid var(--primary);
+color:var(--primary);
+padding:8px 16px;
+border-radius:20px;
+cursor:pointer;
 }
 
-header div{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+header .center{
+height:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
 }
 
 h1{font-size:3rem;}
 p{color:var(--muted);}
 
 .btn{
-  margin-top:30px;
-  background:linear-gradient(135deg,var(--primary),var(--secondary));
-  color:#000;
-  padding:18px 36px;
-  border-radius:50px;
-  font-weight:700;
-  text-decoration:none;
+margin-top:30px;
+background:linear-gradient(135deg,var(--primary),var(--secondary));
+color:#000;
+padding:18px 36px;
+border-radius:50px;
+font-weight:700;
+text-decoration:none;
 }
 
 section{padding:80px 20px;max-width:1200px;margin:auto;}
 h2{text-align:center;margin-bottom:40px;}
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
 }
 
 .card{
-  background:var(--bg-card);
-  padding:30px;
-  border-radius:20px;
+background:var(--bg-card);
+padding:30px;
+border-radius:20px;
+border:1px solid rgba(0,229,255,.15);
 }
 
 form{
-  max-width:500px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
+max-width:520px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:15px;
 }
 
 input,select,button{
-  padding:16px;
-  border-radius:12px;
-  border:none;
+padding:16px;
+border-radius:12px;
+border:none;
 }
 
 input,select{background:#0b1024;color:#fff;}
-button{background:linear-gradient(135deg,var(--primary),var(--secondary));font-weight:700;}
+button{background:linear-gradient(135deg,var(--primary),var(--secondary));font-weight:700;cursor:pointer;color:#000;}
 
 .hidden{display:none;}
-.logout{background:none;color:#ff6b6b;border:none;margin-top:15px;cursor:pointer;}
+.logout{background:none;border:none;color:#ff6b6b;margin-top:15px;cursor:pointer;}
+.admin-btn{background:none;border:none;color:#6f7aa6;cursor:pointer;margin-top:15px;}
 </style>
 </head>
 
@@ -109,48 +111,65 @@ button{background:linear-gradient(135deg,var(--primary),var(--secondary));font-w
 
 <header>
 <div class="topbar">
-  <button onclick="abrirLogin('cliente')">Login Cliente</button>
-  <button onclick="abrirLogin('prestador')">Login Prestador</button>
+<button onclick="abrirLogin('cliente')">Login Cliente</button>
+<button onclick="abrirLogin('prestador')">Login Prestador</button>
 </div>
 
-<div>
-<p style="color:#00ff9c;">Enquanto você lê isso, alguém perto precisa do seu serviço.</p>
+<div class="center">
+<p style="color:#00ff9c;">Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.</p>
 <h1>ResolveAí</h1>
-<p>Serviços sob demanda • Pagamento protegido</p>
+<p>Serviços sob demanda • Pagamento protegido • Prestadores verificados</p>
 <a href="#cliente" class="btn">Solicitar serviço</a>
 </div>
 </header>
+
+<section>
+<h2>Serviços disponíveis</h2>
+<div class="grid">
+<div class="card">🔧 Residencial e emergencial</div>
+<div class="card">🏢 Comercial</div>
+<div class="card">🧹 Limpeza</div>
+<div class="card">💇 Beleza</div>
+<div class="card">🚚 Fretes</div>
+<div class="card">🐶 Pets</div>
+</div>
+</section>
 
 <!-- LOGIN -->
 <section id="login" class="hidden">
 <h2 id="loginTitulo"></h2>
 <form onsubmit="loginUsuario(event)">
 <input id="loginWhats" placeholder="WhatsApp" required>
+<input type="password" id="loginSenha" placeholder="Senha" required>
 <input type="hidden" id="loginTipo">
 <button>Entrar</button>
 </form>
 </section>
 
-<!-- CLIENTE INTERNO -->
+<!-- ÁREA CLIENTE -->
 <section id="clienteArea" class="hidden">
 <h2>Área do Cliente</h2>
 <div class="card" id="clienteInfo"></div>
+<button onclick="pagarSinal()">Pagar sinal (50%)</button>
+<button onclick="pagarRestante()">Pagar restante</button>
+<button onclick="concluirServico()">Confirmar serviço concluído</button>
 <button class="logout" onclick="logout()">Logout</button>
 </section>
 
-<!-- PRESTADOR INTERNO -->
+<!-- ÁREA PRESTADOR -->
 <section id="prestadorArea" class="hidden">
 <h2>Área do Prestador</h2>
 <div class="card" id="prestadorInfo"></div>
 <button class="logout" onclick="logout()">Logout</button>
 </section>
 
-<!-- CADASTROS -->
+<!-- CADASTRO CLIENTE -->
 <section id="cliente">
 <h2>Cadastro Cliente</h2>
 <form id="formCliente">
 <input id="nomeCliente" placeholder="Nome" required>
 <input id="whatsCliente" placeholder="WhatsApp" required>
+<input type="password" id="senhaCliente" placeholder="Criar senha" required>
 <select id="servicoCliente" required>
 <option value="">Serviço</option>
 <option>Residencial</option>
@@ -165,11 +184,13 @@ button{background:linear-gradient(135deg,var(--primary),var(--secondary));font-w
 </form>
 </section>
 
+<!-- CADASTRO PRESTADOR -->
 <section>
 <h2>Cadastro Prestador</h2>
 <form id="formPrestador">
 <input id="nomePrestador" placeholder="Nome" required>
 <input id="whatsPrestador" placeholder="WhatsApp" required>
+<input type="password" id="senhaPrestador" placeholder="Criar senha" required>
 <select id="servicoPrestador" required>
 <option value="">Segmento</option>
 <option>Residencial</option>
@@ -184,12 +205,42 @@ button{background:linear-gradient(135deg,var(--primary),var(--secondary));font-w
 </form>
 </section>
 
+<!-- ADMIN -->
+<section id="admin" class="hidden">
+<h2>Painel Admin</h2>
+<div class="card">
+<h3>Clientes</h3>
+<div id="listaClientes"></div>
+<hr>
+<h3>Prestadores</h3>
+<div id="listaPrestadores"></div>
+<button class="logout" onclick="admin.classList.add('hidden')">Logout</button>
+</div>
+</section>
+
+<section id="termos">
+<h2>Termos de Uso e LGPD</h2>
+<p>A ResolveAí atua como intermediadora tecnológica entre clientes e prestadores.</p>
+<p>Os dados são tratados conforme a LGPD (Lei nº 13.709/2018).</p>
+<p>O usuário pode solicitar exclusão de seus dados a qualquer momento.</p>
+</section>
+
+<footer>
+ResolveAí © 2026 • Brasil<br>
+<button class="admin-btn" id="adminBtn">Admin</button>
+</footer>
+
 <script>
-// CADASTROS
+const ADMIN_USER="admin",ADMIN_PASS="resolveai123";
+
 formCliente.onsubmit=e=>{
 e.preventDefault();
 const c=JSON.parse(localStorage.getItem("clientes")||"[]");
-c.push({nome:nomeCliente.value,whats:whatsCliente.value});
+c.push({
+nome:nomeCliente.value,
+whats:whatsCliente.value,
+senha:senhaCliente.value
+});
 localStorage.setItem("clientes",JSON.stringify(c));
 alert("Cliente cadastrado!");
 formCliente.reset();
@@ -198,17 +249,21 @@ formCliente.reset();
 formPrestador.onsubmit=e=>{
 e.preventDefault();
 const p=JSON.parse(localStorage.getItem("prestadores")||"[]");
-p.push({nome:nomePrestador.value,whats:whatsPrestador.value,servico:servicoPrestador.value});
+p.push({
+nome:nomePrestador.value,
+whats:whatsPrestador.value,
+senha:senhaPrestador.value,
+servico:servicoPrestador.value
+});
 localStorage.setItem("prestadores",JSON.stringify(p));
 alert("Prestador cadastrado!");
 formPrestador.reset();
 };
 
-// LOGIN
 function abrirLogin(tipo){
-document.getElementById("login").classList.remove("hidden");
-document.getElementById("loginTitulo").innerText = "Login " + tipo;
-document.getElementById("loginTipo").value = tipo;
+login.classList.remove("hidden");
+loginTitulo.innerText="Login "+tipo;
+loginTipo.value=tipo;
 login.scrollIntoView({behavior:"smooth"});
 }
 
@@ -216,26 +271,39 @@ function loginUsuario(e){
 e.preventDefault();
 const tipo=loginTipo.value;
 const whats=loginWhats.value;
+const senha=loginSenha.value;
 
 if(tipo==="cliente"){
-const c=JSON.parse(localStorage.getItem("clientes")||"[]").find(x=>x.whats===whats);
-if(!c) return alert("Cliente não encontrado");
-clienteInfo.innerHTML=`<p><strong>${c.nome}</strong><br>${c.whats}</p>`;
+const c=JSON.parse(localStorage.getItem("clientes")||"[]").find(x=>x.whats===whats && x.senha===senha);
+if(!c) return alert("Dados inválidos");
+clienteInfo.innerHTML=`<p><strong>${c.nome}</strong><br>Status: aguardando pagamento</p>`;
 clienteArea.classList.remove("hidden");
 }
 else{
-const p=JSON.parse(localStorage.getItem("prestadores")||"[]").find(x=>x.whats===whats);
-if(!p) return alert("Prestador não encontrado");
+const p=JSON.parse(localStorage.getItem("prestadores")||"[]").find(x=>x.whats===whats && x.senha===senha);
+if(!p) return alert("Dados inválidos");
 prestadorInfo.innerHTML=`<p><strong>${p.nome}</strong><br>${p.servico}<br>Ganhos: R$ 0,00</p>`;
 prestadorArea.classList.remove("hidden");
 }
-
 login.classList.add("hidden");
 }
 
-function logout(){
-location.reload();
-}
+function pagarSinal(){alert("Sinal pago (simulado)");}
+function pagarRestante(){alert("Pagamento total (simulado)");}
+function concluirServico(){alert("Serviço concluído!");}
+function logout(){location.reload();}
+
+adminBtn.onclick=()=>{
+const u=prompt("Usuário admin:");
+const p=prompt("Senha admin:");
+if(u===ADMIN_USER && p===ADMIN_PASS){
+admin.classList.remove("hidden");
+listaClientes.innerHTML="";
+listaPrestadores.innerHTML="";
+(JSON.parse(localStorage.getItem("clientes")||[])).forEach(c=>listaClientes.innerHTML+=`<p>${c.nome}</p>`);
+(JSON.parse(localStorage.getItem("prestadores")||[])).forEach(p=>listaPrestadores.innerHTML+=`<p>${p.nome} • ${p.servico}</p>`);
+}else alert("Acesso negado");
+};
 </script>
 
 </body>
