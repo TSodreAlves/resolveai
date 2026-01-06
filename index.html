@@ -2,10 +2,9 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>ResolveAí • Serviços Sob Demanda</title>
+<title>ResolveAí • Plataforma de Serviços Sob Demanda</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta name="description" content="Plataforma de conexão entre clientes e prestadores com pagamento protegido.">
+<meta name="description" content="Conectamos clientes a prestadores com pagamento protegido e serviços sob demanda.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -91,23 +90,19 @@ button{
 
 footer{
   text-align:center;
-  padding:30px;
+  padding:40px 20px;
   color:#6f7aa6;
   font-size:.9rem;
 }
-.admin-btn{
+
+.admin-btn, .logout{
   background:none;
   border:none;
   color:#6f7aa6;
   cursor:pointer;
+  margin-top:15px;
 }
-.logout{
-  background:none;
-  border:none;
-  color:#ff6b6b;
-  cursor:pointer;
-  margin-top:20px;
-}
+.logout{color:#ff6b6b;}
 </style>
 </head>
 
@@ -116,7 +111,7 @@ footer{
 <header>
 <div>
 <p style="color:#00ff9c;font-weight:600;">
-Enquanto você lê isso, alguém perto precisa do seu serviço.
+Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
 </p>
 
 <h1>ResolveAí</h1>
@@ -133,12 +128,25 @@ Pagamento protegido • Prestadores verificados • Sem mensalidade
 </div>
 </header>
 
+<!-- SERVIÇOS -->
+<section>
+<h2>Serviços disponíveis</h2>
+<div class="grid">
+<div class="card">🔧 Residencial e emergencial</div>
+<div class="card">🏢 Serviços comerciais</div>
+<div class="card">🧹 Limpeza residencial e pós-obra</div>
+<div class="card">💇 Beleza em domicílio</div>
+<div class="card">🚚 Fretes e montagens</div>
+<div class="card">🐶 Serviços para pets</div>
+</div>
+</section>
+
+<!-- CLIENTE -->
 <section id="cliente">
-<h2>Solicitar Serviço</h2>
+<h2>Área do Cliente</h2>
 <form id="formCliente">
 <input id="nomeCliente" placeholder="Seu nome" required>
 <input id="whatsCliente" placeholder="WhatsApp" required>
-
 <select id="servicoCliente" required>
 <option value="">Tipo de serviço</option>
 <option>Residencial</option>
@@ -148,18 +156,17 @@ Pagamento protegido • Prestadores verificados • Sem mensalidade
 <option>Frete</option>
 <option>Pets</option>
 </select>
-
 <input id="localCliente" placeholder="Cidade / Bairro" required>
 <button>Solicitar Atendimento</button>
 </form>
 </section>
 
+<!-- PRESTADOR -->
 <section>
-<h2>Cadastro de Prestador</h2>
+<h2>Área do Prestador</h2>
 <form id="formCadastro">
 <input id="nome" placeholder="Nome completo" required>
 <input id="whatsapp" placeholder="WhatsApp" required>
-
 <select id="servico" required>
 <option value="">Segmento</option>
 <option>Residencial</option>
@@ -169,22 +176,38 @@ Pagamento protegido • Prestadores verificados • Sem mensalidade
 <option>Frete</option>
 <option>Pets</option>
 </select>
-
-<input id="bairro" placeholder="Cidade / Bairro / Estado" required>
+<input id="bairro" placeholder="Cidade / Estado" required>
 <button>Cadastrar</button>
 </form>
 </section>
 
+<!-- ADMIN -->
 <section id="admin" class="hidden">
-<h2>Painel Admin</h2>
+<h2>Painel Administrativo</h2>
 <div class="card">
-<h3>Clientes por segmento</h3>
+<h3>Clientes cadastrados</h3>
 <div id="listaClientes"></div>
 <hr>
-<h3>Prestadores por segmento</h3>
+<h3>Prestadores cadastrados</h3>
 <div id="listaPrestadores"></div>
 <button class="logout" id="logoutAdmin">Logout</button>
 </div>
+</section>
+
+<!-- TERMOS -->
+<section id="termos">
+<h2>Termos de Uso e LGPD</h2>
+<p>
+A <strong>ResolveAí</strong> atua como plataforma tecnológica de intermediação,
+não sendo responsável pela execução dos serviços.
+</p>
+<p>
+Os dados informados são utilizados exclusivamente para funcionamento da
+plataforma, conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
+</p>
+<p>
+O usuário pode solicitar exclusão de seus dados a qualquer momento.
+</p>
 </section>
 
 <footer>
@@ -196,9 +219,6 @@ ResolveAí © 2026 • Brasil<br>
 const ADMIN_USER="admin";
 const ADMIN_PASS="resolveai123";
 
-const formCliente=document.getElementById("formCliente");
-const formCadastro=document.getElementById("formCadastro");
-
 formCliente.onsubmit=e=>{
 e.preventDefault();
 const clientes=JSON.parse(localStorage.getItem("clientes")||"[]");
@@ -209,7 +229,7 @@ servico:servicoCliente.value,
 local:localCliente.value
 });
 localStorage.setItem("clientes",JSON.stringify(clientes));
-alert("Solicitação enviada!");
+alert("Solicitação registrada!");
 formCliente.reset();
 };
 
@@ -223,7 +243,7 @@ servico:servico.value,
 bairro:bairro.value
 });
 localStorage.setItem("prestadores",JSON.stringify(prestadores));
-alert("Cadastro realizado!");
+alert("Cadastro enviado!");
 formCadastro.reset();
 };
 
@@ -236,29 +256,17 @@ renderAdmin();
 }else alert("Acesso negado");
 };
 
-logoutAdmin.onclick=()=>{
-admin.classList.add("hidden");
-};
+logoutAdmin.onclick=()=>admin.classList.add("hidden");
 
 function renderAdmin(){
-const clientes=JSON.parse(localStorage.getItem("clientes")||"[]");
-const prestadores=JSON.parse(localStorage.getItem("prestadores")||"[]");
-
 listaClientes.innerHTML="";
 listaPrestadores.innerHTML="";
-
-["Residencial","Comercial","Limpeza","Beleza","Frete","Pets"].forEach(seg=>{
-listaClientes.innerHTML+=`<h4>${seg}</h4>`;
-clientes.filter(c=>c.servico===seg)
-.forEach(c=>listaClientes.innerHTML+=`<p>${c.nome} - ${c.local}</p>`);
-
-listaPrestadores.innerHTML+=`<h4>${seg}</h4>`;
-prestadores.filter(p=>p.servico===seg)
-.forEach(p=>listaPrestadores.innerHTML+=`<p>${p.nome} - ${p.whatsapp}</p>`);
-});
+(JSON.parse(localStorage.getItem("clientes")||[]))
+.forEach(c=>listaClientes.innerHTML+=`<p>${c.nome} • ${c.servico}</p>`);
+(JSON.parse(localStorage.getItem("prestadores")||[]))
+.forEach(p=>listaPrestadores.innerHTML+=`<p>${p.nome} • ${p.servico}</p>`);
 }
 </script>
 
 </body>
 </html>
-
