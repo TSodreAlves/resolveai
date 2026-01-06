@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>ResolveAí • Plataforma de Serviços Sob Demanda</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Conectamos clientes a prestadores com pagamento protegido e serviços sob demanda.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -23,22 +22,44 @@ body{background:var(--bg-dark);color:var(--text);}
 
 header{
   min-height:100vh;
+  padding:30px;
+  background:
+    linear-gradient(rgba(11,15,26,.9),rgba(11,15,26,.9)),
+    url("https://images.unsplash.com/photo-1581578731548-c64695cc6952") center/cover;
+  position:relative;
+}
+
+.topbar{
+  position:absolute;
+  top:20px;
+  right:20px;
   display:flex;
+  gap:10px;
+}
+
+.topbar button{
+  background:none;
+  border:1px solid var(--primary);
+  color:var(--primary);
+  padding:8px 16px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+header div{
+  height:100%;
+  display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:40px 20px;
-  background:
-    linear-gradient(rgba(11,15,26,.85),rgba(11,15,26,.85)),
-    url("https://images.unsplash.com/photo-1581578731548-c64695cc6952") center/cover;
 }
 
-h1{font-size:clamp(2.5rem,6vw,3.8rem);}
+h1{font-size:3rem;}
 p{color:var(--muted);}
 
 .btn{
   margin-top:30px;
-  display:inline-block;
   background:linear-gradient(135deg,var(--primary),var(--secondary));
   color:#000;
   padding:18px 36px;
@@ -48,7 +69,7 @@ p{color:var(--muted);}
 }
 
 section{padding:80px 20px;max-width:1200px;margin:auto;}
-h2{text-align:center;font-size:2.4rem;margin-bottom:40px;}
+h2{text-align:center;margin-bottom:40px;}
 
 .grid{
   display:grid;
@@ -60,11 +81,10 @@ h2{text-align:center;font-size:2.4rem;margin-bottom:40px;}
   background:var(--bg-card);
   padding:30px;
   border-radius:20px;
-  border:1px solid rgba(0,229,255,.15);
 }
 
 form{
-  max-width:520px;
+  max-width:500px;
   margin:auto;
   display:flex;
   flex-direction:column;
@@ -74,81 +94,65 @@ form{
 input,select,button{
   padding:16px;
   border-radius:12px;
-  border:1px solid rgba(0,229,255,.2);
-  background:#0b1024;
-  color:#fff;
+  border:none;
 }
 
-button{
-  background:linear-gradient(135deg,var(--primary),var(--secondary));
-  font-weight:700;
-  cursor:pointer;
-  color:#000;
-}
+input,select{background:#0b1024;color:#fff;}
+button{background:linear-gradient(135deg,var(--primary),var(--secondary));font-weight:700;}
 
 .hidden{display:none;}
-
-footer{
-  text-align:center;
-  padding:40px 20px;
-  color:#6f7aa6;
-  font-size:.9rem;
-}
-
-.admin-btn, .logout{
-  background:none;
-  border:none;
-  color:#6f7aa6;
-  cursor:pointer;
-  margin-top:15px;
-}
-.logout{color:#ff6b6b;}
+.logout{background:none;color:#ff6b6b;border:none;margin-top:15px;cursor:pointer;}
 </style>
 </head>
 
 <body>
 
 <header>
+<div class="topbar">
+  <button onclick="abrirLogin('cliente')">Login Cliente</button>
+  <button onclick="abrirLogin('prestador')">Login Prestador</button>
+</div>
+
 <div>
-<p style="color:#00ff9c;font-weight:600;">
-Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
-</p>
-
+<p style="color:#00ff9c;">Enquanto você lê isso, alguém perto precisa do seu serviço.</p>
 <h1>ResolveAí</h1>
-
-<p style="font-size:1.3rem;font-weight:500;">
-Serviços Residenciais e Comerciais Sob Demanda
-</p>
-
-<p>
-Pagamento protegido • Prestadores verificados • Sem mensalidade
-</p>
-
+<p>Serviços sob demanda • Pagamento protegido</p>
 <a href="#cliente" class="btn">Solicitar serviço</a>
 </div>
 </header>
 
-<!-- SERVIÇOS -->
-<section>
-<h2>Serviços disponíveis</h2>
-<div class="grid">
-<div class="card">🔧 Residencial e emergencial</div>
-<div class="card">🏢 Serviços comerciais</div>
-<div class="card">🧹 Limpeza residencial e pós-obra</div>
-<div class="card">💇 Beleza em domicílio</div>
-<div class="card">🚚 Fretes e montagens</div>
-<div class="card">🐶 Serviços para pets</div>
-</div>
+<!-- LOGIN -->
+<section id="login" class="hidden">
+<h2 id="loginTitulo"></h2>
+<form onsubmit="loginUsuario(event)">
+<input id="loginWhats" placeholder="WhatsApp" required>
+<input type="hidden" id="loginTipo">
+<button>Entrar</button>
+</form>
 </section>
 
-<!-- CLIENTE -->
-<section id="cliente">
+<!-- CLIENTE INTERNO -->
+<section id="clienteArea" class="hidden">
 <h2>Área do Cliente</h2>
+<div class="card" id="clienteInfo"></div>
+<button class="logout" onclick="logout()">Logout</button>
+</section>
+
+<!-- PRESTADOR INTERNO -->
+<section id="prestadorArea" class="hidden">
+<h2>Área do Prestador</h2>
+<div class="card" id="prestadorInfo"></div>
+<button class="logout" onclick="logout()">Logout</button>
+</section>
+
+<!-- CADASTROS -->
+<section id="cliente">
+<h2>Cadastro Cliente</h2>
 <form id="formCliente">
-<input id="nomeCliente" placeholder="Seu nome" required>
+<input id="nomeCliente" placeholder="Nome" required>
 <input id="whatsCliente" placeholder="WhatsApp" required>
 <select id="servicoCliente" required>
-<option value="">Tipo de serviço</option>
+<option value="">Serviço</option>
 <option>Residencial</option>
 <option>Comercial</option>
 <option>Limpeza</option>
@@ -157,17 +161,16 @@ Pagamento protegido • Prestadores verificados • Sem mensalidade
 <option>Pets</option>
 </select>
 <input id="localCliente" placeholder="Cidade / Bairro" required>
-<button>Solicitar Atendimento</button>
+<button>Cadastrar</button>
 </form>
 </section>
 
-<!-- PRESTADOR -->
 <section>
-<h2>Área do Prestador</h2>
-<form id="formCadastro">
-<input id="nome" placeholder="Nome completo" required>
-<input id="whatsapp" placeholder="WhatsApp" required>
-<select id="servico" required>
+<h2>Cadastro Prestador</h2>
+<form id="formPrestador">
+<input id="nomePrestador" placeholder="Nome" required>
+<input id="whatsPrestador" placeholder="WhatsApp" required>
+<select id="servicoPrestador" required>
 <option value="">Segmento</option>
 <option>Residencial</option>
 <option>Comercial</option>
@@ -176,95 +179,62 @@ Pagamento protegido • Prestadores verificados • Sem mensalidade
 <option>Frete</option>
 <option>Pets</option>
 </select>
-<input id="bairro" placeholder="Cidade / Estado" required>
+<input id="bairroPrestador" placeholder="Cidade" required>
 <button>Cadastrar</button>
 </form>
 </section>
 
-<!-- ADMIN -->
-<section id="admin" class="hidden">
-<h2>Painel Administrativo</h2>
-<div class="card">
-<h3>Clientes cadastrados</h3>
-<div id="listaClientes"></div>
-<hr>
-<h3>Prestadores cadastrados</h3>
-<div id="listaPrestadores"></div>
-<button class="logout" id="logoutAdmin">Logout</button>
-</div>
-</section>
-
-<!-- TERMOS -->
-<section id="termos">
-<h2>Termos de Uso e LGPD</h2>
-<p>
-A <strong>ResolveAí</strong> atua como plataforma tecnológica de intermediação,
-não sendo responsável pela execução dos serviços.
-</p>
-<p>
-Os dados informados são utilizados exclusivamente para funcionamento da
-plataforma, conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
-</p>
-<p>
-O usuário pode solicitar exclusão de seus dados a qualquer momento.
-</p>
-</section>
-
-<footer>
-ResolveAí © 2026 • Brasil<br>
-<button class="admin-btn" id="adminBtn">Admin</button>
-</footer>
-
 <script>
-const ADMIN_USER="admin";
-const ADMIN_PASS="resolveai123";
-
+// CADASTROS
 formCliente.onsubmit=e=>{
 e.preventDefault();
-const clientes=JSON.parse(localStorage.getItem("clientes")||"[]");
-clientes.push({
-nome:nomeCliente.value,
-whatsapp:whatsCliente.value,
-servico:servicoCliente.value,
-local:localCliente.value
-});
-localStorage.setItem("clientes",JSON.stringify(clientes));
-alert("Solicitação registrada!");
+const c=JSON.parse(localStorage.getItem("clientes")||"[]");
+c.push({nome:nomeCliente.value,whats:whatsCliente.value});
+localStorage.setItem("clientes",JSON.stringify(c));
+alert("Cliente cadastrado!");
 formCliente.reset();
 };
 
-formCadastro.onsubmit=e=>{
+formPrestador.onsubmit=e=>{
 e.preventDefault();
-const prestadores=JSON.parse(localStorage.getItem("prestadores")||"[]");
-prestadores.push({
-nome:nome.value,
-whatsapp:whatsapp.value,
-servico:servico.value,
-bairro:bairro.value
-});
-localStorage.setItem("prestadores",JSON.stringify(prestadores));
-alert("Cadastro enviado!");
-formCadastro.reset();
+const p=JSON.parse(localStorage.getItem("prestadores")||"[]");
+p.push({nome:nomePrestador.value,whats:whatsPrestador.value,servico:servicoPrestador.value});
+localStorage.setItem("prestadores",JSON.stringify(p));
+alert("Prestador cadastrado!");
+formPrestador.reset();
 };
 
-adminBtn.onclick=()=>{
-const u=prompt("Usuário admin:");
-const p=prompt("Senha admin:");
-if(u===ADMIN_USER && p===ADMIN_PASS){
-admin.classList.remove("hidden");
-renderAdmin();
-}else alert("Acesso negado");
-};
+// LOGIN
+function abrirLogin(tipo){
+document.getElementById("login").classList.remove("hidden");
+document.getElementById("loginTitulo").innerText = "Login " + tipo;
+document.getElementById("loginTipo").value = tipo;
+login.scrollIntoView({behavior:"smooth"});
+}
 
-logoutAdmin.onclick=()=>admin.classList.add("hidden");
+function loginUsuario(e){
+e.preventDefault();
+const tipo=loginTipo.value;
+const whats=loginWhats.value;
 
-function renderAdmin(){
-listaClientes.innerHTML="";
-listaPrestadores.innerHTML="";
-(JSON.parse(localStorage.getItem("clientes")||[]))
-.forEach(c=>listaClientes.innerHTML+=`<p>${c.nome} • ${c.servico}</p>`);
-(JSON.parse(localStorage.getItem("prestadores")||[]))
-.forEach(p=>listaPrestadores.innerHTML+=`<p>${p.nome} • ${p.servico}</p>`);
+if(tipo==="cliente"){
+const c=JSON.parse(localStorage.getItem("clientes")||"[]").find(x=>x.whats===whats);
+if(!c) return alert("Cliente não encontrado");
+clienteInfo.innerHTML=`<p><strong>${c.nome}</strong><br>${c.whats}</p>`;
+clienteArea.classList.remove("hidden");
+}
+else{
+const p=JSON.parse(localStorage.getItem("prestadores")||"[]").find(x=>x.whats===whats);
+if(!p) return alert("Prestador não encontrado");
+prestadorInfo.innerHTML=`<p><strong>${p.nome}</strong><br>${p.servico}<br>Ganhos: R$ 0,00</p>`;
+prestadorArea.classList.remove("hidden");
+}
+
+login.classList.add("hidden");
+}
+
+function logout(){
+location.reload();
 }
 </script>
 
