@@ -245,6 +245,14 @@ Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
 </select>
 <div id="listaPrestadoresCliente"></div>
 </div>
+<div class="card" id="acordoCliente"></div>
+
+<button onclick="aceitarAcordo()">Aceitar serviço</button>
+
+<button onclick="pagarEtapa(1)">Pagar 50%</button>
+<button onclick="prestadorChegou()">Prestador chegou</button>
+<button onclick="pagarEtapa(2)">Pagar restante</button>
+<button onclick="servicoConcluido()">Serviço concluído</button>
 
 <button class="logout" onclick="voltarHome()">Logout</button>
 </section>
@@ -253,6 +261,9 @@ Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
 <h2>Área do Prestador</h2>
 <div class="card" id="prestadorInfo"></div>
 <div id="prestadorNotificacao"></div>
+<button id="btnMensagens" class="hidden" onclick="abrirChatPrestador()">
+Mensagens recebidas
+</button>
 
 <form id="perfilPrestadorForm">
 <textarea id="perfilDescricao" placeholder="Descreva sua experiência, tempo de atuação e serviços ofertados"></textarea>
@@ -262,6 +273,13 @@ Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
 <div id="chatPrestador" class="hidden">
 <h3>Chat com Cliente</h3>
 <div class="chat-box">
+<div class="card">
+<h4>Dados do serviço acordado</h4>
+<textarea id="descServico" placeholder="Descrição do serviço acordado"></textarea>
+<input id="valorServico" type="number" placeholder="Valor do serviço (R$)">
+<button onclick="enviarAcordo()">Enviar para o cliente</button>
+</div>
+
 <div class="chat-messages" id="mensagensPrestador"></div>
 <form onsubmit="enviarMensagemPrestador(event)">
 <input id="msgPrestador" placeholder="Digite sua mensagem">
@@ -269,6 +287,16 @@ Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
 </form>
 </div>
 </div>
+function carregarAcordoCliente(){
+const a=JSON.parse(localStorage.getItem("acordos")||"{}")[chatAtual];
+if(!a) return;
+
+acordoCliente.innerHTML=`
+<strong>Descrição:</strong> ${a.descricao}<br>
+<strong>Valor:</strong> R$ ${a.valor}<br>
+<strong>Status:</strong> ${a.aceito?"Aceito":"Pendente"}
+`;
+}
 
 <button class="logout" onclick="voltarHome()">Logout</button>
 </section>
@@ -276,6 +304,7 @@ Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
 <section id="chatCliente" class="hidden">
 <h2>Chat com Prestador</h2>
 <div class="chat-box">
+
 <div class="chat-messages" id="mensagensCliente"></div>
 <form onsubmit="enviarMensagemCliente(event)">
 <input id="msgCliente" placeholder="Digite sua mensagem">
@@ -460,6 +489,39 @@ chatAtual=whatsPrestador;
 esconderTudo();
 chatCliente.classList.remove("hidden");
 carregarMensagensCliente();
+carregarAcordoCliente();
+function aceitarAcordo(){
+const acordos=JSON.parse(localStorage.getItem("acordos"));
+acordos[chatAtual].aceito=true;
+localStorage.setItem("acordos",JSON.stringify(acordos));
+alert("Serviço aceito");
+carregarAcordoCliente();
+function pagarEtapa(etapa){
+const acordos=JSON.parse(localStorage.getItem("acordos"));
+const a=acordos[chatAtual];
+
+if(etapa===1 && a.etapa===0){
+a.etapa=1;
+alert("50% pago e retido pelo administrador");
+}
+else if(etapa===2 && a.etapa===1){
+a.etapa=2;
+alert("Pagamento final autorizado");
+}
+else{
+alert("Etapa inválida");
+}
+
+localStorage.setItem("acordos",JSON.stringify(acordos));
+}
+function prestadorChegou(){
+alert("Prestador confirmou chegada");
+}
+function servicoConcluido(){
+alert("Serviço concluído. Pagamento liberado ao prestador");
+}
+
+}
 }
 
 function enviarMensagemCliente(e){
@@ -501,8 +563,10 @@ localStorage.setItem("prestadores",JSON.stringify(lista));
 function verificarNotificacao(){
 if(prestadorLogado.notificacao){
 prestadorNotificacao.innerHTML=`<div class="notificacao">Nova mensagem de cliente</div>`;
+btnMensagens.classList.remove("hidden");
 }
 }
+
 
 function abrirChatPrestador(){
 esconderTudo();
@@ -564,6 +628,20 @@ lista.splice(i,1);
 localStorage.setItem(tipo,JSON.stringify(lista));
 loginAdmin();
 }
+function enviarAcordo(){
+const acordos=JSON.parse(localStorage.getItem("acordos")||"{}");
+
+acordos[prestadorLogado.whats]={
+descricao:descServico.value,
+valor:Number(valorServico.value),
+aceito:false,
+etapa:0
+};
+
+localStorage.setItem("acordos",JSON.stringify(acordos));
+alert("Dados enviados ao cliente");
+}
+
 </script>
 
 </body>
