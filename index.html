@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>ResolveAí • Plataforma de Serviços Sob Demanda</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Plataforma de serviços sob demanda com pagamento protegido.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -22,199 +21,44 @@
 body{background:var(--bg-dark);color:var(--text);}
 .hidden{display:none;}
 
-header{
-min-height:100vh;
-padding:30px;
-background:
-linear-gradient(rgba(11,15,26,.9),rgba(11,15,26,.9)),
-url("https://images.unsplash.com/photo-1581578731548-c64695cc6952") center/cover;
-position:relative;
-}
-
-.topbar{
-position:absolute;
-top:20px;
-right:20px;
-display:flex;
-gap:10px;
-}
-
-.topbar button{
-background:none;
-border:1px solid var(--primary);
-color:var(--primary);
-padding:8px 16px;
-border-radius:20px;
-cursor:pointer;
-}
-
-.center{
-height:100%;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:flex-start;
-text-align:center;
-padding-top:160px;
-}
-
-h1{font-size:3rem;margin-top:20px;}
+header{min-height:100vh;padding:30px;background:linear-gradient(rgba(11,15,26,.9),rgba(11,15,26,.9)),url("https://images.unsplash.com/photo-1581578731548-c64695cc6952") center/cover;}
+.topbar{position:absolute;top:20px;right:20px;display:flex;gap:10px;}
+.topbar button{background:none;border:1px solid var(--primary);color:var(--primary);padding:8px 16px;border-radius:20px;cursor:pointer;}
+.center{padding-top:160px;text-align:center;}
+h1{font-size:3rem;}
 p{color:var(--muted);}
-
-.btn{
-margin-top:30px;
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-color:#000;
-padding:18px 36px;
-border-radius:50px;
-font-weight:700;
-text-decoration:none;
-}
+.btn{margin-top:30px;display:inline-block;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#000;padding:18px 36px;border-radius:50px;font-weight:700;text-decoration:none;}
 
 section{padding:80px 20px;max-width:1200px;margin:auto;}
-h2{text-align:center;margin-bottom:40px;}
+.card{background:var(--bg-card);padding:20px;border-radius:16px;margin-bottom:20px;border:1px solid rgba(0,229,255,.15);}
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:30px;
-}
-
-.card{
-background:var(--bg-card);
-padding:30px;
-border-radius:20px;
-border:1px solid rgba(0,229,255,.15);
-margin-bottom:20px;
-}
-
-form{
-max-width:520px;
-margin:auto;
-display:flex;
-flex-direction:column;
-gap:15px;
-}
-
-input,select,textarea,button{
-padding:16px;
-border-radius:12px;
-border:none;
-}
-
+input,select,textarea,button{padding:14px;border-radius:10px;border:none;width:100%;}
 input,select,textarea{background:#0b1024;color:#fff;}
-textarea{min-height:120px;resize:vertical;}
+button{background:linear-gradient(135deg,var(--primary),var(--secondary));font-weight:700;color:#000;cursor:pointer;}
 
-button{
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-font-weight:700;
-cursor:pointer;
-color:#000;
-}
+.chat-box{background:var(--bg-card);padding:20px;border-radius:16px;}
+.chat-messages{max-height:300px;overflow-y:auto;margin-bottom:10px;}
+.msg-cliente{background:#00e5ff;color:#000;padding:10px;border-radius:12px;margin-bottom:8px;}
+.msg-prestador{background:#2a335f;padding:10px;border-radius:12px;margin-bottom:8px;text-align:right;}
 
-.logout{
-margin-top:20px;
-background:none;
-border:none;
-color:#ff6b6b;
-cursor:pointer;
-}
-
-footer{
-text-align:center;
-padding:30px;
-color:#6f7aa6;
-font-size:.9rem;
-}
-
-.admin-btn{
-background:none;
-border:none;
-color:#6f7aa6;
-cursor:pointer;
-margin-top:10px;
-}
-
-.chat-box{
-max-width:700px;
-margin:auto;
-background:var(--bg-card);
-border-radius:20px;
-padding:20px;
-border:1px solid rgba(0,229,255,.15);
-}
-
-.chat-messages{
-max-height:300px;
-overflow-y:auto;
-margin-bottom:15px;
-}
-
-.msg-cliente{
-background:#00e5ff;
-color:#000;
-padding:10px 14px;
-border-radius:14px;
-margin-bottom:10px;
-max-width:80%;
-}
-
-.msg-prestador{
-background:#2a335f;
-padding:10px 14px;
-border-radius:14px;
-margin-bottom:10px;
-max-width:80%;
-margin-left:auto;
-}
-
-.chat-time{
-font-size:.7rem;
-opacity:.7;
-margin-top:4px;
-}
-
-.notificacao{
-background:#ff6b6b;
-color:#000;
-padding:8px 14px;
-border-radius:20px;
-display:inline-block;
-font-size:.8rem;
-margin-top:10px;
-}
+.logout{background:none;color:#ff6b6b;margin-top:20px;cursor:pointer;}
 </style>
 </head>
 
 <body>
 
-<header id="home">
+<header>
 <div class="topbar">
 <button onclick="abrirLogin('cliente')">Login Cliente</button>
 <button onclick="abrirLogin('prestador')">Login Prestador</button>
 </div>
 
 <div class="center">
-<p style="color:#00ff9c;">
-Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
-</p>
 <h1>ResolveAí</h1>
-<p>Serviços sob demanda • Pagamento protegido • Prestadores verificados</p>
+<p>Plataforma de serviços sob demanda</p>
 <a href="#cadastros" class="btn">Solicitar serviço</a>
 </div>
 </header>
-
-<section>
-<h2>Serviços disponíveis</h2>
-<div class="grid">
-<div class="card">🔧 Residencial urgente</div>
-<div class="card">🏢 Comercial</div>
-<div class="card">🧹 Limpeza</div>
-<div class="card">💇 Beleza</div>
-<div class="card">🚚 Fretes</div>
-<div class="card">🐶 Pets</div>
-</div>
-</section>
 
 <section id="login" class="hidden">
 <h2 id="loginTitulo"></h2>
@@ -228,14 +72,10 @@ Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
 
 <section id="clienteArea" class="hidden">
 <h2>Área do Cliente</h2>
-<div class="card" id="clienteInfo"></div>
+<div id="clienteInfo" class="card"></div>
 
-<button onclick="mostrarBuscaPrestadores()">Buscar prestador</button>
-
-<div id="buscaPrestadores" class="hidden">
-<h3>Escolha o serviço</h3>
 <select id="filtroServico" onchange="listarPrestadores()">
-<option value="">Selecione</option>
+<option value="">Selecione o serviço</option>
 <option>Residencial</option>
 <option>Comercial</option>
 <option>Limpeza</option>
@@ -243,60 +83,33 @@ Enquanto você lê isso, alguém perto precisa exatamente do seu serviço.
 <option>Frete</option>
 <option>Pets</option>
 </select>
+
 <div id="listaPrestadoresCliente"></div>
-</div>
-<div class="card" id="acordoCliente"></div>
+
+<div id="acordoCliente" class="card"></div>
 
 <button onclick="aceitarAcordo()">Aceitar serviço</button>
-
-<button onclick="pagarEtapa(1)">Pagar 50%</button>
-<button onclick="prestadorChegou()">Prestador chegou</button>
-<button onclick="pagarEtapa(2)">Pagar restante</button>
-<button onclick="servicoConcluido()">Serviço concluído</button>
-
 <button class="logout" onclick="voltarHome()">Logout</button>
 </section>
 
 <section id="prestadorArea" class="hidden">
 <h2>Área do Prestador</h2>
-<div class="card" id="prestadorInfo"></div>
-<div id="prestadorNotificacao"></div>
-<button id="btnMensagens" class="hidden" onclick="abrirChatPrestador()">
-Mensagens recebidas
-</button>
+<div id="prestadorInfo" class="card"></div>
 
-<form id="perfilPrestadorForm">
-<textarea id="perfilDescricao" placeholder="Descreva sua experiência, tempo de atuação e serviços ofertados"></textarea>
-<button>Salvar perfil</button>
-</form>
-
-<div id="chatPrestador" class="hidden">
-<h3>Chat com Cliente</h3>
+<div id="chatPrestador">
+<h3>Chat</h3>
 <div class="chat-box">
-<div class="card">
-<h4>Dados do serviço acordado</h4>
-<textarea id="descServico" placeholder="Descrição do serviço acordado"></textarea>
-<input id="valorServico" type="number" placeholder="Valor do serviço (R$)">
-<button onclick="enviarAcordo()">Enviar para o cliente</button>
-</div>
-
 <div class="chat-messages" id="mensagensPrestador"></div>
 <form onsubmit="enviarMensagemPrestador(event)">
 <input id="msgPrestador" placeholder="Digite sua mensagem">
 <button>Enviar</button>
 </form>
 </div>
-</div>
-function carregarAcordoCliente(){
-const a=JSON.parse(localStorage.getItem("acordos")||"{}")[chatAtual];
-if(!a) return;
 
-acordoCliente.innerHTML=`
-<strong>Descrição:</strong> ${a.descricao}<br>
-<strong>Valor:</strong> R$ ${a.valor}<br>
-<strong>Status:</strong> ${a.aceito?"Aceito":"Pendente"}
-`;
-}
+<h3>Orçamento</h3>
+<textarea id="descServico" placeholder="Descrição"></textarea>
+<input id="valorServico" type="number" placeholder="Valor">
+<button onclick="enviarAcordo()">Enviar para o cliente</button>
 
 <button class="logout" onclick="voltarHome()">Logout</button>
 </section>
@@ -304,14 +117,12 @@ acordoCliente.innerHTML=`
 <section id="chatCliente" class="hidden">
 <h2>Chat com Prestador</h2>
 <div class="chat-box">
-
 <div class="chat-messages" id="mensagensCliente"></div>
 <form onsubmit="enviarMensagemCliente(event)">
 <input id="msgCliente" placeholder="Digite sua mensagem">
 <button>Enviar</button>
 </form>
 </div>
-<button class="logout" onclick="voltarHome()">Encerrar</button>
 </section>
 
 <section id="cadastros">
@@ -319,29 +130,16 @@ acordoCliente.innerHTML=`
 <form id="formCliente">
 <input id="nomeCliente" placeholder="Nome" required>
 <input id="whatsCliente" placeholder="WhatsApp" required>
-<input type="password" id="senhaCliente" placeholder="Criar senha" required>
-<select id="servicoCliente" required>
-<option value="">Serviço</option>
-<option>Residencial</option>
-<option>Comercial</option>
-<option>Limpeza</option>
-<option>Beleza</option>
-<option>Frete</option>
-<option>Pets</option>
-</select>
-<input id="localCliente" placeholder="Cidade / Bairro" required>
+<input type="password" id="senhaCliente" placeholder="Senha" required>
 <button>Cadastrar</button>
 </form>
-
-<br><br>
 
 <h2>Cadastro Prestador</h2>
 <form id="formPrestador">
 <input id="nomePrestador" placeholder="Nome" required>
 <input id="whatsPrestador" placeholder="WhatsApp" required>
-<input type="password" id="senhaPrestador" placeholder="Criar senha" required>
-<select id="servicoPrestador" required>
-<option value="">Segmento</option>
+<input type="password" id="senhaPrestador" placeholder="Senha" required>
+<select id="servicoPrestador">
 <option>Residencial</option>
 <option>Comercial</option>
 <option>Limpeza</option>
@@ -349,90 +147,38 @@ acordoCliente.innerHTML=`
 <option>Frete</option>
 <option>Pets</option>
 </select>
-<input id="cidadePrestador" placeholder="Cidade" required>
 <button>Cadastrar</button>
 </form>
 </section>
 
-<section id="admin" class="hidden">
-<h2>Painel Admin</h2>
-
-<div class="card">
-<h3>Clientes</h3>
-<div id="adminClientes"></div>
-</div>
-
-<br>
-
-<div class="card">
-<h3>Prestadores</h3>
-<div id="adminPrestadores"></div>
-</div>
-
-<button class="logout" onclick="voltarHome()">Logout</button>
-</section>
-
-<section id="termos">
-<h2>Termos de Uso e LGPD</h2>
-<p>A ResolveAí atua como intermediadora tecnológica entre clientes e prestadores.</p>
-<p>Os dados são tratados conforme a LGPD (Lei nº 13.709/2018).</p>
-<p>O usuário pode solicitar exclusão de seus dados a qualquer momento.</p>
-</section>
-
-<footer id="footerHome">
-ResolveAí © 2026 • Brasil<br>
-<button class="admin-btn" onclick="loginAdmin()">Admin</button>
-</footer>
-
 <script>
-function esconderTudo(){
-document.querySelectorAll("section,header").forEach(s=>s.classList.add("hidden"));
-footerHome.classList.add("hidden");
+let chatAtual=null;
+let prestadorLogado=null;
+
+function abrirLogin(tipo){
+document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+login.classList.remove("hidden");
+loginTipo.value=tipo;
+loginTitulo.innerText="Login "+tipo;
 }
 
-function voltarHome(){
-location.reload();
-}
+function voltarHome(){location.reload();}
 
 formCliente.onsubmit=e=>{
 e.preventDefault();
 const c=JSON.parse(localStorage.getItem("clientes")||"[]");
-c.push({
-nome:nomeCliente.value,
-whats:whatsCliente.value,
-senha:senhaCliente.value,
-servico:servicoCliente.value
-});
+c.push({nome:nomeCliente.value,whats:whatsCliente.value,senha:senhaCliente.value});
 localStorage.setItem("clientes",JSON.stringify(c));
-alert("Cliente cadastrado!");
-formCliente.reset();
+alert("Cliente cadastrado");
 };
 
 formPrestador.onsubmit=e=>{
 e.preventDefault();
 const p=JSON.parse(localStorage.getItem("prestadores")||"[]");
-p.push({
-nome:nomePrestador.value,
-whats:whatsPrestador.value,
-senha:senhaPrestador.value,
-servico:servicoPrestador.value,
-perfil:"",
-notificacao:false
-});
+p.push({nome:nomePrestador.value,whats:whatsPrestador.value,senha:senhaPrestador.value,servico:servicoPrestador.value});
 localStorage.setItem("prestadores",JSON.stringify(p));
-alert("Prestador cadastrado!");
-formPrestador.reset();
+alert("Prestador cadastrado");
 };
-
-function abrirLogin(tipo){
-esconderTudo();
-login.classList.remove("hidden");
-loginTitulo.innerText="Login "+tipo;
-loginTipo.value=tipo;
-}
-
-let prestadorLogado=null;
-let chatAtual=null;
 
 function loginUsuario(e){
 e.preventDefault();
@@ -441,207 +187,89 @@ const whats=loginWhats.value;
 const senha=loginSenha.value;
 
 if(tipo==="cliente"){
-const c=JSON.parse(localStorage.getItem("clientes")||"[]").find(x=>x.whats===whats && x.senha===senha);
-if(!c) return alert("Dados inválidos");
-esconderTudo();
+const c=JSON.parse(localStorage.getItem("clientes")).find(x=>x.whats===whats&&x.senha===senha);
+if(!c)return alert("Erro");
 clienteArea.classList.remove("hidden");
-clienteInfo.innerHTML=`<strong>${c.nome}</strong><br>Serviço: ${c.servico}`;
+clienteInfo.innerHTML=c.nome;
 }else{
-const p=JSON.parse(localStorage.getItem("prestadores")||"[]").find(x=>x.whats===whats && x.senha===senha);
-if(!p) return alert("Dados inválidos");
-prestadorLogado=p;
-esconderTudo();
+prestadorLogado=JSON.parse(localStorage.getItem("prestadores")).find(x=>x.whats===whats&&x.senha===senha);
+if(!prestadorLogado)return alert("Erro");
 prestadorArea.classList.remove("hidden");
-prestadorInfo.innerHTML=`<strong>${p.nome}</strong><br>${p.servico}`;
-perfilDescricao.value=p.perfil||"";
-verificarNotificacao();
+prestadorInfo.innerHTML=prestadorLogado.nome;
 }
-}
-
-perfilPrestadorForm.onsubmit=e=>{
-e.preventDefault();
-prestadorLogado.perfil=perfilDescricao.value;
-let lista=JSON.parse(localStorage.getItem("prestadores"));
-lista=lista.map(p=>p.whats===prestadorLogado.whats?prestadorLogado:p);
-localStorage.setItem("prestadores",JSON.stringify(lista));
-alert("Perfil salvo");
-};
-
-function mostrarBuscaPrestadores(){
-buscaPrestadores.classList.toggle("hidden");
+login.classList.add("hidden");
 }
 
 function listarPrestadores(){
 const s=filtroServico.value;
-const lista=JSON.parse(localStorage.getItem("prestadores")||"[]").filter(p=>p.servico===s);
 listaPrestadoresCliente.innerHTML="";
-lista.forEach(p=>{
-listaPrestadoresCliente.innerHTML+=`
-<div class="card" onclick="abrirChatCliente('${p.whats}')">
-<strong>${p.nome}</strong><br>
-${p.perfil||"Perfil em análise"}
-</div>`;
+JSON.parse(localStorage.getItem("prestadores")).filter(p=>p.servico===s).forEach(p=>{
+listaPrestadoresCliente.innerHTML+=`<div class="card" onclick="abrirChat('${p.whats}')">${p.nome}</div>`;
 });
 }
 
-function abrirChatCliente(whatsPrestador){
-chatAtual=whatsPrestador;
-esconderTudo();
+function abrirChat(whats){
+chatAtual=whats;
 chatCliente.classList.remove("hidden");
+clienteArea.classList.add("hidden");
 carregarMensagensCliente();
 carregarAcordoCliente();
+}
+
+function enviarMensagemCliente(e){
+e.preventDefault();
+const chats=JSON.parse(localStorage.getItem("chats")||"{}");
+if(!chats[chatAtual])chats[chatAtual]=[];
+chats[chatAtual].push({de:"cliente",texto:msgCliente.value});
+localStorage.setItem("chats",JSON.stringify(chats));
+msgCliente.value="";
+carregarMensagensCliente();
+}
+
+function enviarMensagemPrestador(e){
+e.preventDefault();
+const chats=JSON.parse(localStorage.getItem("chats")||"{}");
+if(!chats[prestadorLogado.whats])chats[prestadorLogado.whats]=[];
+chats[prestadorLogado.whats].push({de:"prestador",texto:msgPrestador.value});
+localStorage.setItem("chats",JSON.stringify(chats));
+msgPrestador.value="";
+carregarMensagensPrestador();
+}
+
+function carregarMensagensCliente(){
+mensagensCliente.innerHTML="";
+(JSON.parse(localStorage.getItem("chats")||"{}")[chatAtual]||[]).forEach(m=>{
+mensagensCliente.innerHTML+=`<div class="${m.de==="cliente"?"msg-cliente":"msg-prestador"}">${m.texto}</div>`;
+});
+}
+
+function carregarMensagensPrestador(){
+mensagensPrestador.innerHTML="";
+(JSON.parse(localStorage.getItem("chats")||"{}")[prestadorLogado.whats]||[]).forEach(m=>{
+mensagensPrestador.innerHTML+=`<div class="${m.de==="cliente"?"msg-cliente":"msg-prestador"}">${m.texto}</div>`;
+});
+}
+
+function enviarAcordo(){
+const acordos=JSON.parse(localStorage.getItem("acordos")||"{}");
+acordos[prestadorLogado.whats]={descricao:descServico.value,valor:valorServico.value,aceito:false};
+localStorage.setItem("acordos",JSON.stringify(acordos));
+alert("Orçamento enviado");
+}
+
+function carregarAcordoCliente(){
+const a=JSON.parse(localStorage.getItem("acordos")||"{}")[chatAtual];
+if(!a)return;
+acordoCliente.innerHTML=`Descrição: ${a.descricao}<br>Valor: R$ ${a.valor}<br>Status: ${a.aceito?"Aceito":"Pendente"}`;
+}
+
 function aceitarAcordo(){
 const acordos=JSON.parse(localStorage.getItem("acordos"));
 acordos[chatAtual].aceito=true;
 localStorage.setItem("acordos",JSON.stringify(acordos));
 alert("Serviço aceito");
 carregarAcordoCliente();
-function pagarEtapa(etapa){
-const acordos=JSON.parse(localStorage.getItem("acordos"));
-const a=acordos[chatAtual];
-
-if(etapa===1 && a.etapa===0){
-a.etapa=1;
-alert("50% pago e retido pelo administrador");
 }
-else if(etapa===2 && a.etapa===1){
-a.etapa=2;
-alert("Pagamento final autorizado");
-}
-else{
-alert("Etapa inválida");
-}
-
-localStorage.setItem("acordos",JSON.stringify(acordos));
-}
-function prestadorChegou(){
-alert("Prestador confirmou chegada");
-}
-function servicoConcluido(){
-alert("Serviço concluído. Pagamento liberado ao prestador");
-}
-
-}
-}
-
-function enviarMensagemCliente(e){
-e.preventDefault();
-const msgs=JSON.parse(localStorage.getItem("chats")||"{}");
-if(!msgs[chatAtual]) msgs[chatAtual]=[];
-msgs[chatAtual].push({
-de:"cliente",
-texto:msgCliente.value,
-hora:new Date().toLocaleTimeString()
-});
-localStorage.setItem("chats",JSON.stringify(msgs));
-marcarNotificacao(chatAtual);
-msgCliente.value="";
-carregarMensagensCliente();
-}
-
-function carregarMensagensCliente(){
-mensagensCliente.innerHTML="";
-const msgs=JSON.parse(localStorage.getItem("chats")||"{}")[chatAtual]||[];
-msgs.forEach(m=>{
-mensagensCliente.innerHTML+=`
-<div class="${m.de==="cliente"?"msg-cliente":"msg-prestador"}">
-${m.texto}
-<div class="chat-time">${m.hora}</div>
-</div>`;
-});
-}
-
-function marcarNotificacao(whats){
-let lista=JSON.parse(localStorage.getItem("prestadores"));
-lista=lista.map(p=>{
-if(p.whats===whats) p.notificacao=true;
-return p;
-});
-localStorage.setItem("prestadores",JSON.stringify(lista));
-}
-
-function verificarNotificacao(){
-if(prestadorLogado.notificacao){
-prestadorNotificacao.innerHTML=`<div class="notificacao">Nova mensagem de cliente</div>`;
-btnMensagens.classList.remove("hidden");
-}
-}
-
-
-function abrirChatPrestador(){
-esconderTudo();
-prestadorArea.classList.remove("hidden");
-chatPrestador.classList.remove("hidden");
-carregarMensagensPrestador();
-prestadorLogado.notificacao=false;
-let lista=JSON.parse(localStorage.getItem("prestadores"));
-lista=lista.map(p=>p.whats===prestadorLogado.whats?prestadorLogado:p);
-localStorage.setItem("prestadores",JSON.stringify(lista));
-}
-
-function carregarMensagensPrestador(){
-mensagensPrestador.innerHTML="";
-const msgs=JSON.parse(localStorage.getItem("chats")||"{}")[prestadorLogado.whats]||[];
-msgs.forEach(m=>{
-mensagensPrestador.innerHTML+=`
-<div class="${m.de==="cliente"?"msg-cliente":"msg-prestador"}">
-${m.texto}
-<div class="chat-time">${m.hora}</div>
-</div>`;
-});
-}
-
-function enviarMensagemPrestador(e){
-e.preventDefault();
-const msgs=JSON.parse(localStorage.getItem("chats")||"{}");
-if(!msgs[prestadorLogado.whats]) msgs[prestadorLogado.whats]=[];
-msgs[prestadorLogado.whats].push({
-de:"prestador",
-texto:msgPrestador.value,
-hora:new Date().toLocaleTimeString()
-});
-localStorage.setItem("chats",JSON.stringify(msgs));
-msgPrestador.value="";
-carregarMensagensPrestador();
-}
-
-function loginAdmin(){
-const u=prompt("Usuário admin:");
-const p=prompt("Senha admin:");
-if(u==="admin" && p==="resolveai123"){
-esconderTudo();
-admin.classList.remove("hidden");
-adminClientes.innerHTML="";
-adminPrestadores.innerHTML="";
-(JSON.parse(localStorage.getItem("clientes")||[])).forEach((c,i)=>{
-adminClientes.innerHTML+=`<p>${c.nome} • ${c.servico} <button onclick="excluir('clientes',${i})">Excluir</button></p>`;
-});
-(JSON.parse(localStorage.getItem("prestadores")||[])).forEach((p,i)=>{
-adminPrestadores.innerHTML+=`<p onclick="abrirChatPrestador()">${p.nome} • ${p.servico}</p>`;
-});
-}else alert("Acesso negado");
-}
-
-function excluir(tipo,i){
-const lista=JSON.parse(localStorage.getItem(tipo));
-lista.splice(i,1);
-localStorage.setItem(tipo,JSON.stringify(lista));
-loginAdmin();
-}
-function enviarAcordo(){
-const acordos=JSON.parse(localStorage.getItem("acordos")||"{}");
-
-acordos[prestadorLogado.whats]={
-descricao:descServico.value,
-valor:Number(valorServico.value),
-aceito:false,
-etapa:0
-};
-
-localStorage.setItem("acordos",JSON.stringify(acordos));
-alert("Dados enviados ao cliente");
-}
-
 </script>
 
 </body>
